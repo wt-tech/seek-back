@@ -39,7 +39,7 @@ $(function(){
 			submit : function(){
 				var that = this;
 				var params = that.prepareParams();
-				fileAxios.post("banner/savebanner",params).then(function(res){
+				fileAxios.post("banner/back/savebanner",params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status==SUCCESS){
 						//TODO 
 						console.log(res);

@@ -98,7 +98,12 @@ $(function(){
 				params.append("onUse",that.banner.onUse);
 				params.append("uploadTime",that.banner.uploadTime);
 				params.append("url",that.banner.url);
-				
+				params = that.appendImg(params);
+				return params;
+			},
+			appendImg : function(params){
+				var img = $('#imgInput')[0].files[0];
+				params.append("bannerImg",img);
 				return params;
 			}
 		}
