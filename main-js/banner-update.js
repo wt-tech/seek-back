@@ -48,7 +48,7 @@ $(function(){
 			
 			getBanner : function(bannerId){
 				var that = this;
-				simpleAxios.get('banner/getbanner?id='+this.bannerId).then(function(res){
+				simpleAxios.get('banner/back/getbanner?id='+this.bannerId).then(function(res){
 					if(res.status == STATUS_OK){
 						that.banner = res.data;
 						that.banner.id = that.bannerId;
@@ -79,7 +79,7 @@ $(function(){
 			submit : function(){
 				var that = this;
 				var params = that.prepareUpdateParams();
-				fileAxios.post("banner/updatebanner",params).then(function(res){
+				fileAxios.post("banner/back/updatebanner",params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status==SUCCESS){
 						//TODO 
 						alert('修改成功');

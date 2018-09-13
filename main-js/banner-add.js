@@ -1,4 +1,4 @@
-//获取bannerId
+
 
 
 $(function(){
@@ -7,35 +7,42 @@ $(function(){
 		el : '#banner',
 		data : {
 			banner : {
-				id : null,
 				imgName : null,
-				onUse : null,
-				url : null
+				onUse : true
 			}
 		},
 		
 		created : function(){
-			this.initBanner();
 		},
 		
 		methods : {
 			
 			displayImg : function(){
-                var img = $('#imgInput')[0].files[0];
-				var reads = new FileReader();
-				reads.readAsDataURL(img);
-				reads.onload = function(e){
-					$('#img').attr('src',this.result);
+                var imgList = $('#imgInput')[0].files;
+
+				for(var img of imgList){
+					var reads = new FileReader();
+					reads.readAsDataURL(img);
+					reads.onload = function(e){
+						var imgDom = "<img src='"+this.result+"' alt='"+"请确保上传的是图片!"+"'></img>";
+						$('#imgArea').append(imgDom);
+					}
 				}
             },
+			
+			imgChanged : function(){
+				$('#imgArea').empty();//先清空 div内的图片
+				this.displayImg();
+			},
 			
 			//点击提交按钮
 			submit : function(){
 				var that = this;
-				var params = that.prepareUpdateParams();
-				fileAxios.post("banner/updatebanner",params).then(function(res){
+				var params = that.prepareParams();
+				fileAxios.post("banner/savebanner",params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status==SUCCESS){
 						//TODO 
+						console.log(res);
 						alert('修改成功');
 					}else
 						backEndExceptionHanlder(res);
@@ -44,14 +51,19 @@ $(function(){
 				})
 			},
 			
-			prepareUpdateParams : function(){
+			prepareParams : function(){
 				var that = this;
 				var params = new FormData();
-				params.append("id",that.banner.id);
 				params.append("imgName",that.banner.imgName);
 				params.append("onUse",that.banner.onUse);
-				params.append("url",that.banner.url);
-				
+				params = that.appendImgs(params);
+				return params;
+			},
+			appendImgs : function(params){
+				var imgList = $('#imgInput')[0].files;
+				for(var img of imgList){
+					params.append("file",img);
+				}
 				return params;
 			}
 		}

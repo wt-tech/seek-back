@@ -39,7 +39,7 @@ $(function(){
 		methods : {
 			initRawBannerList : function(){
 				var that = this;
-				simpleAxios.get('banner/listbanner').then(function(res){
+				simpleAxios.get('banner/back/listbanner').then(function(res){
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
 						that.rawBannerList = res.data.banners;
 					}else
@@ -54,7 +54,7 @@ $(function(){
 				var params = new FormData();
 				var bannerId = banner.id;
 				params.append('id',bannerId);
-				simpleAxios.post('banner/removebanner',params).then(function(res){
+				simpleAxios.post('banner/back/removebanner',params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
 						alert('删除成功!');
 						that.deleteBannerFrontEnd(bannerId);
