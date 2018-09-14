@@ -33,7 +33,7 @@ $(function(){
 			submit : function(){
 				var that = this;
 				var params = that.prepareUpdateParams();
-				fileAxios.post("banner/updatebanner",params).then(function(res){
+				fileAxios.post("banner/back/updatebanner",params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status==SUCCESS){
 						//TODO 
 						alert('修改成功');

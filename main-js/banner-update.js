@@ -48,7 +48,7 @@ $(function(){
 			
 			getBanner : function(bannerId){
 				var that = this;
-				simpleAxios.get('banner/getbanner?id='+this.bannerId).then(function(res){
+				simpleAxios.get('banner/back/getbanner?id='+this.bannerId).then(function(res){
 					if(res.status == STATUS_OK){
 						that.banner = res.data;
 						that.banner.id = that.bannerId;

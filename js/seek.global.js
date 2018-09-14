@@ -3,7 +3,8 @@
 //新建axios实例,普通form表单
 var simpleAxios = axios.create({
     // baseURL : '/seek01/',
-	baseURL : 'http://192.168.0.177:8888/seek01/',
+//	baseURL : 'http://192.168.0.177:8888/seek01/',
+	baseURL : 'http://192.168.0.105:8080/seek01/',
     timeout : 60000,
     withCredentials: true, // 允许携带cookie
     headers:{
@@ -12,7 +13,8 @@ var simpleAxios = axios.create({
 });
 //axios实例,携带文件上传
 var fileAxios = axios.create({
-    baseURL : 'http://192.168.0.177:8888/seek01/',
+//  baseURL : 'http://192.168.0.177:8888/seek01/',
+	baseURL : 'http://192.168.0.105:8080/seek01/',
     timeout : 60000,
     withCredentials: true, // 允许携带cookie
     headers:{
