@@ -19,13 +19,15 @@ $(function(){
 			bannerList : function(){
 				var that = this;
 				return that.rawBannerList.map(function(banner,index){
+					var bannerId = getValue(banner,'id');
 					return {
 						index : index +1,
 						imgName : getValue(banner,'imgName'),
 						onUse : getValue(banner,'onUse')===true?'是':'否',
 						uploadTime : getDateOfDateTime(getValue(banner,'uploadTime')),
 						url : "<img src='"+ getValue(banner,'url')+"'></img>",
-						id : getValue(banner,'id')
+						id : bannerId,
+						detail : "<a href='edit.html?bannerId="+bannerId+"' target='_blank'>点击编辑</a>"
 					};
 				});
 			}
@@ -68,7 +70,7 @@ $(function(){
 				var that = this;
 				that.rawBannerList.remove(bannerId);
 			},
-			turnToEditPage : function(banner){
+			turnToUpdatePage : function(banner){
 				var id = banner.id;
 				var url = "update.html?id="+id;
 				window.open(url);

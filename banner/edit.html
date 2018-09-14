@@ -2,20 +2,36 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>wangEditor demo</title>
+    <title>详情编辑页</title>
+	<style type="text/css">
+	#editor {
+		border: 1px solid #ccc;
+		width : 750px;
+
+		margin : 0 auto;
+    }
+	.editbtn{
+		margin : 10px auto;
+		width : 100px;
+	}
+	</style>
 </head>
 <body>
-    <div id="editor">
-        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+    <div class="edit" id="editor">
+        <p>请在此处输入该轮播图的描述</p>
     </div>
+	<div class="editbtn">
+		<button class="edit" id="submit">提交</button>
+		<button class="edit" id="preview">预览</button>
+	</div>
+	
+	<div class="content" id="content"></div>
+	<button class="content" id="modify">返回继续修改</button>
 
-    <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
-    <script type="text/javascript" src="../js/wangEditor.min.js"></script>
-    <script type="text/javascript">
-        var E = window.wangEditor
-        var editor = new E('#editor')
-        // 或者 var editor = new E( document.getElementById('editor') )
-        editor.create();
-    </script>
 </body>
 </html>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/wangEditor.min.js"></script>
+<script src="../js/axios.min.js"></script>
+<script src="../js/seek.global.js"></script>
+<script src="../main-js/edit.js"></script>
