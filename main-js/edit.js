@@ -60,17 +60,15 @@ $(function () {
 	
 	//配置编辑器相关信息
 	(function(){
-// 		editor.customConfig.uploadImgServer = UPOLOAD_IMG_URL; // 上传图片接口
-// 		editor.customConfig.withCredentials = true;//传递cookie
-// 		editor.customConfig.uploadImgTimeout = 3000;//设置超时时间
-// 		editor.customConfig.uploadFileName = 'detailImg'//后端MultipartFile的参数名
 		editor.customConfig.customUploadImg = function (files, insert) {
 			console.log(files);
 			var params = prepareImgParams(files);
-			fileAxios.post('back/imgs',params).then(function(res){
+			fileAxios.post('detail/back/imgs',params).then(function(res){
 				if(res.status == STATUS_OK && res.data.status == SUCCESS){
+					var urls = res.data.urls;
+					for(var url of urls)
+						insert(url);
 					alert('图片插入成功');
-					insert(res.data.url);
 				}
 				else
 					backEndExceptionHanlder(res);

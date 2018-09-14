@@ -26,8 +26,7 @@ $(function(){
 						onUse : getValue(banner,'onUse')===true?'是':'否',
 						uploadTime : getDateOfDateTime(getValue(banner,'uploadTime')),
 						url : "<img src='"+ getValue(banner,'url')+"'></img>",
-						id : bannerId,
-						detail : "<a href='edit.html?bannerId="+bannerId+"' target='_blank'>点击编辑</a>"
+						id : bannerId						
 					};
 				});
 			}
@@ -74,6 +73,15 @@ $(function(){
 				var id = banner.id;
 				var url = "update.html?id="+id;
 				window.open(url);
+			},
+			//detail : "<a href='edit.html?bannerId="+bannerId+"' target='_blank'>点击编辑</a>"
+			//查看详情页
+			turnToDetailPage : function(banner){
+				window.open("detail.html?bannerId="+getValue(banner,'id'));
+			},
+			//跳转到详情页编辑页面
+			turnToDetailEditPage : function(banner){
+				window.open("edit.html?bannerId="+getValue(banner,'id'));
 			}
 		}
 	});
