@@ -163,12 +163,13 @@
 						<th align="center" valign="middle" class="borderright">是否展示</th>
 						<th align="center" valign="middle" class="borderright">上传时间</th>
 						<th align="center" valign="middle" class="borderright">图片</th>
+						<th align="center" valign="middle" class="borderright">编辑详情页</th>
 						<th align="center" valign="middle">操作</th>
 					</tr>
 					<tr v-for="(banner,index) of bannerList">
 						<td is="vtd" v-for="(field,property) of banner" v-if="property!='id'" :content="field"></td>
 						<td align="center" valign="middle" class="borderbottom">
-							<a @click.prevent="turnToEditPage(banner)" class="add">编辑</a>
+							<a @click.prevent="turnToUpdatePage(banner)" class="add">编辑</a>
 							<span class="gray">&nbsp;|&nbsp;</span>
 							<a @click.prevent="deleteBannerRequest(banner)" onFocus="this.blur()" class="add">删除</a>
 						</td>
