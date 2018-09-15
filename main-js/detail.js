@@ -37,6 +37,7 @@ $(function(){
 		}else
 			backEndExceptionHanlder(res);		
 	}).catch(function(err){
+		alert(err);
 		unknownError(err);
 	});
 })

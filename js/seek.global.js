@@ -38,11 +38,14 @@ var jsonAxios = axios.create({
 });
 
 
- function backEndExceptionHanlder(res){
+ function backEndExceptionHanlder(res,message=null){
 	if(res.status==STATUS_OK && res.data.status == FAIL){//后端的GloblalExceptionHandler抛出的错误信息
 		let tips = res.data.tips;
-		alert(tips);
-	}
+		alert(tips?tips:message);
+		if(tips=="请先登录!")
+			window.open("../login.html");
+	}else
+		alert('未知错误');
 }
 
 function unknownError(err){
