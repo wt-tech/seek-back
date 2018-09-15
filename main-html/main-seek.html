@@ -13,7 +13,7 @@
 				padding: 15px 0px 10px 5px;
 			}
 			
-			#searchmain {
+			body {
 				font-size: 12px;
 			}
 			
@@ -130,11 +130,16 @@
 			.bggray {
 				background: #f9f9f9
 			}
+			
+			.img{
+				width: 50px;
+				height: auto;
+			}
 		</style>
 	</head>
 
 	<body>
-		<table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
+		<table width="99%" border="0" cellspacing="0" cellpadding="0" id="seek">
 			<tr>
 				<td align="left" valign="top">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
@@ -151,19 +156,19 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="left" valign="top" id="seek">
+				<td align="left" valign="top">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
 						<tr>
+							<th align="center" valign="middle" class="borderright">序号</th>
 							<th align="center" valign="middle" class="borderright">编号</th>
 							<th align="center" valign="middle" class="borderright">类别</th>
 							<th align="center" valign="middle" class="borderright">姓名</th>
 							<th align="center" valign="middle" class="borderright">性别</th>
 							<th align="center" valign="middle" class="borderright">出生日期</th>
 							<th align="center" valign="middle" class="borderright">失踪日期</th>
-							<th align="center" valign="middle" class="borderright">地址</th>
+							<th align="center" valign="middle" class="borderright">出生地址</th>
+							<th align="center" valign="middle" class="borderright">失踪地址</th>
 							<th align="center" valign="middle" class="borderright">详细地址</th>
-							<th align="center" valign="middle" class="borderright">相貌特征</th>
-							<th align="center" valign="middle" class="borderright">失踪经过</th>
 							<th align="center" valign="middle" class="borderright">图片</th>
 							<th align="center" valign="middle" class="borderright">失踪类别</th>
 							<th align="center" valign="middle" class="borderright">联系人姓名</th>
@@ -175,20 +180,20 @@
 						<tr v-for="(seek,index) of seekList">
 							<td is="vtd" v-for="(field,property) of seek" v-if="property!='id'" :content="field"></td>
 							<td align="center" valign="middle" class="borderbottom">
-								<a @click.prevent="turnToEditPage(seek)" class="add">编辑</a>
-								<span class="gray">&nbsp;|&nbsp;</span>
-								<a @click.prevent="deleteBannerRequest(seek)" onFocus="this.blur()" class="add">删除</a>
+								<!--<a @click.prevent="turnToEditPage(seek)" class="add">编辑</a>
+								<span class="gray">&nbsp;|&nbsp;</span>-->
+								<a @click.prevent="deleteSeekRequest(seek)" onFocus="this.blur()" class="add">删除</a>
 							</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
 			<tr>
-				<td align="left" valign="top" class="fenye">11 条数据 1/1 页&nbsp;&nbsp;
-					<a href="#" target="mainFrame" onFocus="this.blur()">首页</a>&nbsp;&nbsp;
-					<a href="#" target="mainFrame" onFocus="this.blur()">上一页</a>&nbsp;&nbsp;
-					<a href="#" target="mainFrame" onFocus="this.blur()">下一页</a>&nbsp;&nbsp;
-					<a href="#" target="mainFrame" onFocus="this.blur()">尾页</a>
+				 <td align="right" valign="bottom" class="fenye">{{totalCount}} 条数据 {{pageIndex}}/{{totalPage}} 页&nbsp;&nbsp;
+					<a href="#" @click.prevent="turnToFirstPage" >首页</a>&nbsp;&nbsp;
+					<a href="#" @click.prevent="turnToPrePage" >上一页</a>&nbsp;&nbsp;
+					<a href="#" @click.prevent="turnToNextPage" >下一页</a>&nbsp;&nbsp;
+					<a href="#" @click.prevent="turnToLastPage" >尾页</a>
 				</td>
 			</tr>
 		</table>

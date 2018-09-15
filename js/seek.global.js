@@ -6,8 +6,8 @@ const STATUS_OK = 200;
 const SUCCESS = 'success';
 const FAIL = 'fail';
 const TEN = 10;
-// const BASEURL = 'http://192.168.0.101:8080/seek01/';
-const BASEURL = 'http://192.168.0.177:8888/seek01/'
+ const BASEURL = 'http://192.168.0.102:8080/seek01/';
+//const BASEURL = 'http://192.168.0.177:8888/seek01/'
 
 //新建axios实例,普通form表单
 var simpleAxios = axios.create({

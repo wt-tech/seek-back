@@ -16,6 +16,9 @@ $(function(){
 			fields : ['id','index','sequence','seekType','missName','gender','birthdate','missDate','address'
 	                 ,'missDetailPlace','feature','plot','seekimgs','seekSubtype','contactName',
 	                 ,'contactTel','title' ,'pubdate'],//index指序号
+	        pageIndex:1,
+            totalCount : 0,
+            totalPage : 0,
 		},
 		computed : {
 			seekList : function(){
@@ -29,11 +32,10 @@ $(function(){
 						gender : getValue(seek,'gender'),
 						birthdate : getDateOfDateTime(getValue(seek,'birthdate')),
 						missDate : getDateOfDateTime(getValue(seek,'missDate')),
-						address : getValue(seek,'address'),
+						birthaddress : getValue(seek.address,'birthProvinceName')+getValue(seek.address,'birthCityName')+getValue(seek.address,'birthCountyName'),
+						missaddress : getValue(seek.address,'missProvinceName')+getValue(seek.address,'missCityName')+getValue(seek.address,'missCountyName'),
 						missDetailPlace : getValue(seek,'missDetailPlace'),
-						feature : getValue(seek,'feature'),
-						plot : getValue(seek,'plot'),
-						seekimgs : "<img src='"+ getValue(seek,'seekimgs')+"'></img>",
+						seekimgs : "<img src='"+ getValue(seek,'seekimgs'.split(",")[0])+"' class='img'></img>",
 						seekSubtype : getValue(seek,'seekSubtype'),
 						contactName : getValue(seek,'contactName'),
 						contactTel : getValue(seek,'contactTel'),
@@ -55,7 +57,11 @@ $(function(){
 			initRawSeekList : function(){
 				var that = this;
 				var vueInstance = this;
-				simpleAxios.get('seek/back/listseek'+vueInstance.pageIndex+'/'+_pageSize).then(function(res){
+				let params = {
+					currentPageNo:vueInstance.pageIndex,
+					id : 1
+				};
+				jsonAxios.post('seek/back/listseek',params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
 						that.rawSeekList = res.data.seeks;
 					}else
@@ -68,10 +74,11 @@ $(function(){
 			//初始化总条目个数
             initTotalSeekCount:function(){
                 var vueInstance = this;
-                axos.get('/seek/back/countseek').then(function(res) {
+                simpleAxios.get('/seek/back/countseek').then(function(res) {
                      //获取数据成功
                     if(res.status==200 && res.data.status == 'success'){
                         vueInstance.totalCount = res.data.totalCount;
+                      //console.log(vueInstance.totalCount);
                         vueInstance.totalPage = Math.ceil(vueInstance.totalCount/_pageSize);
                     }else{
                         console.log('err');
@@ -114,7 +121,7 @@ $(function(){
                 }
             },
             
-			deleteSeekRequest : function(banner){
+			deleteSeekRequest : function(seek){
 				if(!window.confirm("确定要删除该寻亲记录吗?")) return;
 				var that = this;
 				var params = new FormData();
@@ -136,7 +143,7 @@ $(function(){
 			},
 			turnToEditPage : function(seek){
 				var id = seek.id;
-				var url = "update.html?id="+id;
+				var url = "seek-update.html?id="+id;
 				window.open(url);
 			}
 		}
