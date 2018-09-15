@@ -43,6 +43,7 @@ $(function(){
 				simpleAxios.get('banner/back/listbanner').then(function(res){
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
 						that.rawBannerList = res.data.banners;
+						console.log(res.data.banners)
 					}else
 						backEndExceptionHanlder(res);
 				}).catch(function(res){

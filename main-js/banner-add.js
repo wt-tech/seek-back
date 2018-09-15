@@ -38,6 +38,7 @@ $(function(){
 			//点击提交按钮
 			submit : function(){
 				var that = this;
+
 				var params = that.prepareParams();
 				fileAxios.post("banner/back/savebanner",params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status==SUCCESS){
