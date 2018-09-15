@@ -40,3 +40,13 @@ $(function(){
 		unknownError(err);
 	});
 })
+
+
+$(function(){
+	$('#backToIndex').click(function(){
+		console.log('abc');
+		wx.miniProgram.switchTab({
+			url : '/tabs/index/index'
+		});
+	});
+})
