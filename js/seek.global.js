@@ -11,6 +11,7 @@ const BASEURL = 'http://192.168.0.177:8888/seek01/'
 
 //新建axios实例,普通form表单
 var simpleAxios = axios.create({
+
 	baseURL : BASEURL,
     timeout : 60000,
     withCredentials: true, // 允许携带cookie
@@ -20,6 +21,7 @@ var simpleAxios = axios.create({
 });
 //axios实例,携带文件上传
 var fileAxios = axios.create({
+
 	baseURL : BASEURL,
     timeout : 60000,
     withCredentials: true, // 允许携带cookie
