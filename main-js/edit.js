@@ -56,7 +56,8 @@ $(function () {
 	showEdit();
 	
 	var E = window.wangEditor;
-	var editor = new E('#editor');
+//	var editor = new E('#editor');
+	var editor = new E('#editor1','#editor2');
 	
 	//配置编辑器相关信息
 	(function(){
