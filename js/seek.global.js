@@ -1,10 +1,17 @@
 
+var _pageSize = 7;//分页,每页显示条目
+var _imgsizes = 20971520;//图片大小最大为20M
+
+const STATUS_OK = 200;
+const SUCCESS = 'success';
+const FAIL = 'fail';
+const TEN = 10;
+// const BASEURL = 'http://192.168.0.101:8080/seek01/';
+const BASEURL = 'http://192.168.0.177:8888/seek01/'
 
 //新建axios实例,普通form表单
 var simpleAxios = axios.create({
-    // baseURL : '/seek01/',
-//	baseURL : 'http://192.168.0.177:8888/seek01/',
-	baseURL : 'http://192.168.0.105:8080/seek01/',
+	baseURL : BASEURL,
     timeout : 60000,
     withCredentials: true, // 允许携带cookie
     headers:{
@@ -13,22 +20,22 @@ var simpleAxios = axios.create({
 });
 //axios实例,携带文件上传
 var fileAxios = axios.create({
-//  baseURL : 'http://192.168.0.177:8888/seek01/',
-	baseURL : 'http://192.168.0.105:8080/seek01/',
+	baseURL : BASEURL,
     timeout : 60000,
     withCredentials: true, // 允许携带cookie
     headers:{
         'Content-type': 'multipart/form-data'
     }
 });
-
-var _pageSize = 7;//分页,每页显示条目
-var _imgsizes = 20971520;//图片大小最大为20M
-
-const STATUS_OK = 200;
-const SUCCESS = 'success';
-const FAIL = 'fail';
-const TEN = 10;
+//axios实例,json发送数据
+var jsonAxios = axios.create({
+	baseURL : BASEURL,
+    timeout : 60000,
+    withCredentials: true, // 允许携带cookie
+    headers:{
+        'Content-type': 'application/json'
+    }
+});
 
 
  function backEndExceptionHanlder(res){
@@ -39,8 +46,6 @@ const TEN = 10;
 }
 
 function unknownError(err){
-	console.log(typeof	err);
-	console.log(err);
 	alert('未知错误');
 }
 

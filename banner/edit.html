@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>详情编辑页</title>
+	<style type="text/css">
+	#editor {
+		border: 1px solid #ccc;
+		width : 750px;
+
+		margin : 0 auto;
+    }
+	.editbtn{
+		margin : 10px auto;
+		width : 100px;
+	}
+	</style>
+</head>
+<body>
+    <div class="edit" id="editor">
+        <p>请在此处输入该轮播图的描述</p>
+    </div>
+	<div class="editbtn">
+		<button class="edit" id="submit">提交</button>
+		<button class="edit" id="preview">预览</button>
+	</div>
+	
+	<div class="content" id="content"></div>
+	<button class="content" id="modify">返回继续修改</button>
+
+</body>
+</html>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/wangEditor.min.js"></script>
+<script src="../js/axios.min.js"></script>
+<script src="../js/seek.global.js"></script>
+<script src="../main-js/edit.js"></script>
