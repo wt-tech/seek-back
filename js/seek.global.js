@@ -6,11 +6,21 @@ const STATUS_OK = 200;
 const SUCCESS = 'success';
 const FAIL = 'fail';
 const TEN = 10;
+<<<<<<< .mine
    const BASEURL = 'http://192.168.0.103:8080/seek01/';
 //const BASEURL = 'http://192.168.0.177:8888/seek01/'
 //const BASEURL = 'http://www.want-tech.com/seek01/'
+
+=======
+
+//const BASEURL = 'http://192.168.0.102:8080/seek01/';
+const BASEURL = 'http://192.168.0.177:8888/seek01/'
+
+>>>>>>> .theirs
+
 //新建axios实例,普通form表单
 var simpleAxios = axios.create({
+
 	baseURL : BASEURL,
     timeout : 60000,
     withCredentials: true, // 允许携带cookie
@@ -20,6 +30,7 @@ var simpleAxios = axios.create({
 });
 //axios实例,携带文件上传
 var fileAxios = axios.create({
+
 	baseURL : BASEURL,
     timeout : 60000,
     withCredentials: true, // 允许携带cookie
@@ -38,11 +49,14 @@ var jsonAxios = axios.create({
 });
 
 
- function backEndExceptionHanlder(res){
+ function backEndExceptionHanlder(res,message=null){
 	if(res.status==STATUS_OK && res.data.status == FAIL){//后端的GloblalExceptionHandler抛出的错误信息
 		let tips = res.data.tips;
-		alert(tips);
-	}
+		alert(tips?tips:message);
+		if(tips=="请先登录!")
+			window.open("../login.html");
+	}else
+		alert('未知错误');
 }
 
 function unknownError(err){
