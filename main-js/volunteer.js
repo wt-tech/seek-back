@@ -59,7 +59,6 @@ $(function(){
 						console.log(that.rawVolunteerList)
 					}else 
 						backEndExceptionHanlder(res);
-					
 				}).catch(function(err){
 					unknownError(err);
 				})

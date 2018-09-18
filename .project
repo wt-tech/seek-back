@@ -16,16 +16,8 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1536826394625</id>
-			<name></name>
-			<type>26</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-node_modules</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1537234181533</id>
+
+			<id>1537241369372</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
