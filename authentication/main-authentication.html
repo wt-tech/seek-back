@@ -36,7 +36,7 @@ a{
 </style>
 </head>
 <body>
-<div id="volunteer">
+<div id="authentication">
 <table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
   <tr>
     <td align="left" valign="top">
@@ -58,24 +58,34 @@ a{
     <td align="left" valign="top">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
 				<tr>
+					<th align="center" valign="middle" class="borderright" style="display: none;">全选</th>
 					<th align="center" valign="middle" class="borderright">序号</th>
-					<th align="center" valign="middle" class="borderright">编号</th>
 					<th align="center" valign="middle" class="borderright">姓名</th>
 					<th align="center" valign="middle" class="borderright">身份证号</th>
+					<!--<th align="center" valign="middle" class="borderright">正面照</th>
+					<th align="center" valign="middle" class="borderright">反面照</th>-->
 					<th align="center" valign="middle" class="borderright">所在地址</th>
 					<th align="center" valign="middle" class="borderright">联系方式</th>
-					<th align="center" valign="middle" class="borderright">审核结果</th>
+					<th align="center" valign="middle" class="borderright">认证结果</th>
 					<th align="center" valign="middle">操作</th>
 				</tr>
-				<tr v-for="(volunteer,index) of volunteerList" class="cont-list"> 
-						<td is="std" v-for="(field,property) of volunteer" v-if="property!='id'"  :content="field"></td>
+				<tr v-for="(authentication,index) of authenticationList" class="cont-list"> 
+						<td align="center" valign="middle" class="borderbottom" style="display: none;"><input type="checkbox" id="uuihoo" value="uuihoo"></td>
+						<td is="std" v-for="(field,property) of authentication" v-if="property!='id'"  :content="field"></td>
 						<td align="center" valign="middle" class="borderbottom">
-							<a @click.prevent="passvolunteer(volunteer)" class="add">通过</a>
+							<a @click.prevent="passauthentication(authentication)" class="add">通过</a>
 							<span class="gray">&nbsp;|&nbsp;</span>
-							<a @click.prevent="notpassvolunteer(volunteer)" onFocus="this.blur()" class="add">不通过</a>
+							<a @click.prevent="notpassauthentication(authentication)" onFocus="this.blur()" class="add">不通过</a>
 						</td>
-				
 				</tr>
+				<!-- <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+					<td align="center" valign="middle" class="borderright borderbottom">1</td>
+					<td align="center" valign="middle" class="borderright borderbottom">admin</td>
+					<td align="center" valign="middle" class="borderright borderbottom">创始人</td>
+					<td align="center" valign="middle" class="borderright borderbottom">已锁定</td>
+					<td align="center" valign="middle" class="borderright borderbottom">2013-04-26 11:00:59</td>
+					<td align="center" valign="middle" class="borderbottom"><a href="add.html" target="mainFrame" onFocus="this.blur()" class="add">编辑</a><span class="gray">&nbsp;|&nbsp;</span><a href="add.html" target="mainFrame" onFocus="this.blur()" class="add">删除</a></td>
+				</tr> -->
 			</table>
 		</td>
 	</tr>
@@ -95,4 +105,4 @@ a{
 <script src="../js/vue.min.js"></script>
 <script src="../js/axios.min.js"></script>
 <script src="../js/seek.global.js"></script>
-<script src="../main-js/volunteer.js"></script>
+<script src="../main-js/authentication.js"></script>
