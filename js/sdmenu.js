@@ -27,8 +27,10 @@ SDMenu.prototype.init = function() {
 		var match = regex.exec(document.cookie);
 		if (match) {
 			var states = match[1].split("");
-			for (var i = 0; i < states.length; i++)
+			for (var i = 0; i < states.length; i++){
 				this.submenus[i].className = (states[i] == 0 ? "collapsed" : "");
+			}
+				
 		}
 	}
 };

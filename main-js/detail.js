@@ -28,7 +28,7 @@ function initBannerDetail(){
 $(function(){
 	//发送请求,查询该banner是否有详情页,并初始化富文本编辑器面板
 	var bannerDetail = null;
-	simpleAxios.get('detail/back/banner/detail/'+bannerId).then(function(res){
+	simpleAxios.get('detail/banner/detail/'+bannerId).then(function(res){
 		if(res.status == STATUS_OK && res.data.status == SUCCESS){
 			bannerDetail = res.data.detail;
 			if(bannerDetail == null)//该轮播图无详情页
