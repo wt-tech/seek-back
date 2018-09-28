@@ -4,8 +4,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>主要内容区main</title>
-		<link href="css/css.css" type="text/css" rel="stylesheet" />
-		<link href="css/main.css" type="text/css" rel="stylesheet" />
+		<link href="../css/css.css" type="text/css" rel="stylesheet" />
+		<link href="../css/main.css" type="text/css" rel="stylesheet" />
 		<link rel="shortcut icon" href="images/main/favicon.ico" />
 		<style>
 			body {
@@ -49,7 +49,7 @@
 				height: 24px;
 				line-height: 24px;
 				width: 55px;
-				background: url(images/main/list_input.jpg) no-repeat left top;
+				background: url(../images/main/list_input.jpg) no-repeat left top;
 				border: none;
 				cursor: pointer;
 				font-family: "Microsoft YaHei", "Tahoma", "Arial", '宋体';
@@ -136,6 +136,7 @@
 				width: 50px;
 				height: auto;
 			}
+			
 		</style>
 	</head>
 
@@ -145,12 +146,37 @@
 				<td align="left" valign="top">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
 						<tr>
-							<td width="90%" align="left" valign="middle">
+							<td  align="left" valign="middle">
 								<form method="post" action="">
 									<span>管理员：</span>
-									<input type="text" name="" value="" class="text-word">
-									<input name="" type="button" value="查询" class="text-but">
+									<input type="text" name="" v-model="inputs" value="" class="text-word">
+									<input name="chaxun" @click="submit" type="button" value="查询" class="text-but">
 								</form>
+								
+							</td>
+							
+							<td width="80px" align="center">排序</td>
+							<td width="80px" align="right" valign="middle" class=" ">出生日期：</td>
+							<td width="80px"> 
+								<select v-model="seekSort.birthDate" @change="sortBirthDate"> 
+									<option value="true">更早</option>
+									<option value="false">最近</option>
+								</select>
+							</td>
+							<td align="right" valign="middle" class=" ">失踪日期：</td>
+							<td width="80px">
+								<select v-model="seekSort.missDate" @change="sortMissDate">
+									<option value="true">更早</option>
+									<option value="false">最近</option>
+								</select>
+							</td>
+							
+							<td width="80px" align="right" valign="middle" class=" ">发布时间：</td>
+							<td width="80px">
+								<select v-model="seekSort.pubDate" @change="sortPubDate"> 
+									<option value="true">更早</option>
+									<option value="false">最近</option>
+								</select>
 							</td>
 						</tr>
 					</table>
@@ -170,12 +196,12 @@
 							<th align="center" valign="middle" class="borderright">出生地址</th>
 							<th align="center" valign="middle" class="borderright">失踪地址</th>
 							<th align="center" valign="middle" class="borderright">详细地址</th>
-							<th align="center" valign="middle" class="borderright">图片</th>
+							<!--<th align="center" valign="middle" class="borderright">图片</th>-->
 							<th align="center" valign="middle" class="borderright">失踪类别</th>
-							<th align="center" valign="middle" class="borderright">联系人姓名</th>
-							<th align="center" valign="middle" class="borderright">联系人手机</th>
+							<!--<th align="center" valign="middle" class="borderright">联系人姓名</th>-->
+							<!--<th align="center" valign="middle" class="borderright">联系人手机</th>-->
 							<th align="center" valign="middle" class="borderright">标题</th>
-							<th align="center" valign="middle" class="borderright">发布时间</th>
+							<th align="center" valign="middle" class="borderright ">发布时间</th>
 							<th align="center" valign="middle">操作</th>
 						</tr>
 						<tr v-for="(seek,index) of seekList">
@@ -183,6 +209,7 @@
 							<td align="center" valign="middle" class="borderbottom">
 								<!--<a @click.prevent="turnToEditPage(seek)" class="add">编辑</a>
 								<span class="gray">&nbsp;|&nbsp;</span>-->
+								<a @click.prevent="turnToUpdatePage(seek)" onFocus="this.blur()" class="add">详情</a>&nbsp;&nbsp;|
 								<a @click.prevent="deleteSeekRequest(seek)" onFocus="this.blur()" class="add">删除</a>
 							</td>
 						</tr>
