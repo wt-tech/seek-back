@@ -6,7 +6,10 @@ const STATUS_OK = 200;
 const SUCCESS = 'success';
 const FAIL = 'fail';
 const TEN = 10;
+
 const BASEURL = 'https://www.qghls.com/seek/'
+
+
 
 //新建axios实例,普通form表单
 var simpleAxios = axios.create({
