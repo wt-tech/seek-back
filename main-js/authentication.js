@@ -10,69 +10,68 @@ Vue.component('std',{
 
 $(function(){
 	var app = new Vue({
-		el:'#volunteer',
+		el:'#authentication',
 		data:{
-			rawVolunteerList : [],
+			rawAuthenticationList : [],
 			currentPageNo : 1,
-			field : ['id','index','customerName','sequence','identityNO','positiveIdentityUrl','negativeIdentityUrl','address','tel','volResult'],//index指序号
+			field : ['id','index','customerName','identityNO','address','tel','authResult'],//index指序号
 			totalPage: '',
 			totalCount:'',
 		},
 		computed : {
-			volunteerList : function(){
+			authenticationList : function(){
 				var that = this;
-				return that.rawVolunteerList.map(function(volunteer,index){
+				return that.rawAuthenticationList.map(function(authentication,index){
 					return{
 						index : index +1,
-						sequence:'<a href="./get-volunteer.html?id='+getValue(volunteer,'id')+'" target="mainFrame">'+getValue(volunteer,'sequence')+'</a>',
-						customerName : getValue(volunteer,'customerName'),
-						identityNO: getValue(volunteer,'identityNO'),
-						address : getValue(volunteer,'address'),
-						tel : getValue(volunteer,'tel'),
-						volResult : getValue(volunteer,'volResult'),
-						id : getValue(volunteer,'id')
+						customerName : '<a href="./get-authentication.html?id='+getValue(authentication,'id')+'" target="mainFrame">'+getValue(authentication,'customerName')+'</a>',
+						identityNO: getValue(authentication,'identityNO'),
+						address : getValue(authentication,'address'),
+						tel : getValue(authentication,'tel'),
+						authResult : getValue(authentication,'authResult'),
+						id : getValue(authentication,'id')
 					}
 				})
 			}
 		},
 		created : function(){
 			var that = this;
-			that .initRawVolunteerList()
+			that .initRawAuthResultList()
 		},
 		
 		methods : {
-			initRawVolunteerList : function(PageNo){
+			initRawAuthResultList : function(PageNo){
 				var that = this
 //				var params = new FormData();
 				var currentPageNo = PageNo || that.currentPageNo
 //				params.append('currentPageNo',currentPageNo)
-				simpleAxios.get('volunteer/back/listvolunteer?currentPageNo='+currentPageNo).then(function(res){
+				simpleAxios.get('authentication/back/listauthentication?currentPageNo='+currentPageNo).then(function(res){
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
 						var resData = res.data
-						that.rawVolunteerList = resData.volunteers
+						that.rawAuthenticationList = resData.authentications
 						that.totalPage = Math.ceil(resData.totalCount/resData.pageSize)
 						that.totalCount = resData.totalCount
 						console.log(res)
-						console.log(that.rawVolunteerList)
+						console.log(that.rawAuthenticationList)
 					}else 
 						backEndExceptionHanlder(res);
 				}).catch(function(err){
 					unknownError(err);
 				})
 			},
-			passvolunteer : function(volunteer){
-				console.log(volunteer.id,volunteer)
+			passauthentication : function(authentication){
+				console.log(authentication.id,authentication)
 				var that = this
 				var params = new FormData()
-				var id = volunteer.id				
-				params.append('volResult','审核通过')
+				var id = authentication.id				
+				params.append('authResult','认证通过')
 				params.append('id',id)
-				if (volunteer.volResult == '审核通过'){
+				if (authentication.authResult == '认证通过'){
 					alert('审核已完成，请勿重复审核')
 				}else{
-					simpleAxios.post('volunteer/back/updatevolunteer',params).then(function(res){
+					simpleAxios.post('authentication/back/updateAuthentication',params).then(function(res){
 						console.log(res)
-						that.initRawVolunteerList()
+						that.initRawAuthResultList()
 					}).catch(function(err){
 						console.log(err)
 					})
@@ -80,19 +79,19 @@ $(function(){
 				
 			},
 			
-			notpassvolunteer : function(volunteer){
-				console.log(volunteer.id,volunteer)
+			notpassauthentication : function(authentication){
+				console.log(authentication.id,authentication)
 				var that = this
 				var params = new FormData()
-				var id = volunteer.id				
-				params.append('volResult','审核不通过')
+				var id = authentication.id				
+				params.append('authResult','认证不通过')
 				params.append('id',id)
-				if (volunteer.volResult == '审核不通过'){
+				if (authentication.authResult == '认证不通过'){
 					alert('审核已完成，请勿重复审核')
 				}else{
-					simpleAxios.post('volunteer/back/updatevolunteer',params).then(function(res){
+					simpleAxios.post('authentication/back/updateAuthentication',params).then(function(res){
 						console.log(res)
-						that.initRawVolunteerList()
+						that.initRawAuthResultList()
 					}).catch(function(err){
 						console.log(err)
 					})
@@ -103,7 +102,7 @@ $(function(){
 			firstPage : function(){
 				var that = this
 				var currentPageNo  = 1 
-				that.initRawVolunteerList(currentPageNo)
+				that.initRawAuthResultList(currentPageNo)
 			},
 			prevPage : function(){
 				var that = this
@@ -111,7 +110,7 @@ $(function(){
 					var currentPageNo  = that. currentPageNo
 					currentPageNo -- 
 					that.currentPageNo = currentPageNo
-					that.initRawVolunteerList(currentPageNo)
+					that.initRawAuthResultList(currentPageNo)
 				}else{
 					alert('已经是第一页')
 				}
@@ -125,13 +124,13 @@ $(function(){
 				}else{					
 					currentPageNo ++
 					that.currentPageNo = currentPageNo
-					that.initRawVolunteerList(currentPageNo)
+					that.initRawAuthResultList(currentPageNo)
 				}
 			},
 			lastPage :function(){
 				var that = this
 				that.currentPageNo = that.totalPage
-				that.initRawVolunteerList(that.totalPage)
+				that.initRawAuthResultList(that.totalPage)
 			}
 			
 		},
