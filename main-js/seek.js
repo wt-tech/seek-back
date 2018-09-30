@@ -207,6 +207,12 @@ $(function(){
 					unknownError(res);
 				});
 			},
+			toComment:function(seek){
+				var id = seek.id
+				console.log(id)
+				var url = "comment.html?id="+id;
+				window.open(url);
+			},
 			prepareUpdateParams : function(){
 				var that = this;
 				var params = new FormData();

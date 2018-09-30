@@ -9,9 +9,9 @@ const TEN = 10;
 
 
 
-//const BASEURL = 'http://192.168.0.102:8080/seek01/';
+const BASEURL = 'http://192.168.0.103:8080/seek01/';
 //const BASEURL = 'http://192.168.0.177:8888/seek01/'
-const BASEURL = 'https://www.qghls.com/seek/'
+//const BASEURL = 'https://www.qghls.com/seek/'
 
 
 
@@ -66,9 +66,13 @@ function unknownError(err){
  * 若不存在该属性,或该属性为null均返回空字符串
  */
 function getValue(object,key){
-	var value = null;
+	var value = object;
+	var properties = key.split('.');
+	
 	try{
-		value = object[key];
+		for(var tempProperty of properties){
+			value = value[tempProperty];
+		}
 	}catch(err){
 		value = null;
 	}
