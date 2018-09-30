@@ -21,7 +21,7 @@ $(function(){
 					return {
 						index : index +1,
 						roleName : getValue(role,'roleName'),
-						description : getValue(role,'description');
+						description : getValue(role,'description'),
 						id : getValue(role,'id')						
 					};
 				});
@@ -66,10 +66,15 @@ $(function(){
 				var that = this;
 				that.rawRoleList.remove(roleId);
 			},
-			turnToUpdatePage : function(role){
+			turnToPermissionAccessUpdatePage : function(role){
 				var id = role.id;
-				var url = "update.html?id="+id;
+				var url = "role-permission.html?id="+id;
 				window.open(url);
+			},
+			turnToMenuAccessUpdatePage : function(role){
+				var id = role.id;
+				var url = "role-menu.html?id="+id;
+				window.location.href = url;
 			}
 		}
 	});

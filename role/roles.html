@@ -173,7 +173,9 @@
 						<td is="vtd" v-for="(field,property) of role" v-if="property!='id'" :content="field"></td>
 						
 						<td align="center" valign="middle" class="borderbottom borderright">
-							<a @click.prevent="turnToUpdatePage(role)" class="add">编辑</a>
+							<a @click.prevent="turnToPermissionAccessUpdatePage(role)" class="add">编辑数据权限</a>
+							<span class="gray">&nbsp;|&nbsp;</span>
+							<a @click.prevent="turnToMenuAccessUpdatePage(role)" class="add">编辑菜单权限</a>
 							<span class="gray">&nbsp;|&nbsp;</span>
 							<a @click.prevent="deleteroleRequest(role)" onFocus="this.blur()" class="add">删除</a>
 						</td>

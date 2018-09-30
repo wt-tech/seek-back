@@ -1,0 +1,62 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>角色管理</title>
+	<link rel="shortcut icon" href="../images/main/favicon.ico" />
+	<style>
+		.roles{
+			width:400px;
+			height:300px;
+			border:solid 2px #777;
+		}
+		#role > div{
+			float: left;
+		}
+		a{
+			text-decoration: none;
+			color : black
+		}
+		.bg-gray{
+			background-color: #4E4E4E;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="role">
+		<!-- <p>所有菜单项</p> -->
+		<div class='roles'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+				<tr v-for="(menu,index) of allMenus" :class="menu.bgGray?'bg-gray':'no-class'">
+					<td>
+						<a 	@click.prevent.exact="commonClick(menu.id,index)"
+							@click.prevent.shift.exact="shiftClick(menu.id,index)">{{menu.description}}</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<button>添加至左边</button>
+			<button>全部添加至左边</button>
+		</div>
+		<!-- <p>该角色拥有菜单项</p> -->
+		<div class='roles'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr v-for="(menu,index) of roleMenus" :class="menu.bgGray?'bg-gray':'no-class'">
+					<td>
+						<a 	@click.prevent.exact="commonClick(menu.id,index)"
+							@click.prevent.shift.exact="shiftClick(menu.id,index)">{{menu.description}}</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/axios.min.js"></script>
+<script src="../js/seek.global.js"></script>
+<script src="../role/role-menu.js"></script>
