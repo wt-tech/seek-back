@@ -41,7 +41,7 @@ $(function(){
 				}
 				this.bannerId = id;
 			},
-			
+			//获取信息
 			initBanner : function(){
 				this.getBanner(this.bannerId);
 			},

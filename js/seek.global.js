@@ -7,8 +7,10 @@ const SUCCESS = 'success';
 const FAIL = 'fail';
 const TEN = 10;
 
-//const BASEURL = 'http://192.168.0.103:8080/seek01/';
-const BASEURL = 'http://192.168.0.177:8888/seek/'
+const BASEURL = 'http://192.168.0.103:8080/seek01/';
+//const BASEURL = 'http://192.168.0.177:8888/seek/'
+
+
 
 
 //新建axios实例,普通form表单
@@ -62,9 +64,13 @@ function unknownError(err){
  * 若不存在该属性,或该属性为null均返回空字符串
  */
 function getValue(object,key){
-	var value = null;
+	var value = object;
+	var properties = key.split('.');
+	
 	try{
-		value = object[key];
+		for(var tempProperty of properties){
+			value = value[tempProperty];
+		}
 	}catch(err){
 		value = null;
 	}
