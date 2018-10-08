@@ -22,17 +22,17 @@ $(function(){
 		
 		methods : {
 			
-			initBannerId : function(){
-				try{
-					var search = window.location.search;
-					search = search.substr(1,search.length-1);
-					var id = search.split('=')[1];
-				}catch(e){
-					id = -1;
-					alert('未检测到id,请重试');
-				}
-				this.bannerId = id;
-			},
+//			initBannerId : function(){
+//				try{
+//					var search = window.location.search;
+//					search = search.substr(1,search.length-1);
+//					var id = search.split('=')[1];
+//				}catch(e){
+//					id = -1;
+//					alert('未检测到id,请重试');
+//				}
+//				this.bannerId = id;
+//			},
 			//获取信息
 			submit:function(){
 				var that = this 
@@ -46,10 +46,13 @@ $(function(){
 						that.tip="密码不能为空"
 					}else{
 						console.log(that.newPassword)
-						simpleAxios.get('back/updatepwd?userPassword='+that.newPassword).then(function(res){
-							console.log(res)
+						var pwd = that.newPassword
+						simpleAxios.get('back/updatepwd?userPassword=' + pwd).then(function(res){
+							
 							if(res.status == STATUS_OK){
-								
+								alert('密码修改成功')
+								that.newPassword=''
+								that.confirmPassword=''
 							}else
 								backEndExceptionHanlder(res);
 						}).catch(function(res){
