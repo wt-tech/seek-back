@@ -51,7 +51,7 @@
 			height: 24px;
 			line-height: 24px;
 			width: 55px;
-			background: url(images/main/list_input.jpg) no-repeat left top;
+			background: url(../images/main/list_input.jpg) no-repeat left top;
 			border: none;
 			cursor: pointer;
 			font-family: "Microsoft YaHei", "Tahoma", "Arial", '宋体';
@@ -62,7 +62,7 @@
 		}
 
 		#search a.add {
-			background: url(images/main/add.jpg) no-repeat 0px 6px;
+			background: url(../images/main/add.jpg) no-repeat 0px 6px;
 			padding: 0 10px 0 26px;
 			height: 40px;
 			line-height: 40px;
@@ -245,6 +245,9 @@
 			width:300px;
 			margin:50px auto;
 		}
+		.disbg{
+			background:#fff;
+		}
 	</style>
 </head>
 
@@ -262,15 +265,15 @@
 			</tr>
 			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">标题：</td>
-				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input type="text" v-model="seek.title" >
+				<td align="left" valign="middle"  class="borderright borderbottom main-for">
+					<input type="text" disabled="" class="disbg" v-model="seek.title" >
 					<!--{{seek.title}}-->
 				</td>
 			</tr>
 			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">类别：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input type="text" v-model="seek.seekType" >
+					<input type="text" disabled="" class="disbg" v-model="seek.seekType" >
 					<!--{{seek.seekType}}-->
 					<!--<select v-model="banner.onUse">
 						<option value="true">是</option>
@@ -299,7 +302,7 @@
 			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">性别：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input type="text" v-model="seek.gender" >
+					<input type="text" disabled="" class="disbg" v-model="seek.gender" >
 					<!--{{seek.gender}}-->
 					<!--<img :src="banner.url" alt="请确保上传的是图片文件" id="img">-->
 				</td>
@@ -307,14 +310,14 @@
 			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">出生日期：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input disabled="" type="text" v-model="seek.birthdate" >
+					<input disabled="" type="text" class="disbg"  v-model="seek.birthdate" >
 					<!--{{seek.birthdate}}-->
 				</td>
 			</tr>
 			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">失踪日期：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input disabled="" type="" name="" id="" value=""  v-model="seek.missDate"/>
+					<input disabled="" type="" class="disbg" name="" id="" value=""  v-model="seek.missDate"/>
 					<!--{{seek.missDate}}-->
 				</td>
 			</tr>
@@ -333,32 +336,12 @@
 				<td align="right" valign="middle" class="borderright borderbottom bggray">失踪地址：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
 					<span>{{seek.address.missProvinceName}} - {{seek.address.missCityName}} - {{seek.address.missCountyName}}</span>
-					<!--<select name='missprovince' v-model="initmissporv"  @change="missprovinceChange" >
-						
-						 <option v-for="option in missprovince" v-bind:value="option.name">
-						    {{ option.name }}
-						 </option>						 
-					</select>
-					<select @change="misscityChange" v-model="initmisscity">						
-						<option v-for="option in misscity" v-bind:value="option.id">
-						    {{ option.name }}
-						 </option>
-					</select>
-					<select v-model="initmisscunty">						
-						<option v-for="option in missconty" v-bind:value="option.id">
-						    {{ option.name }}
-						 </option>
-					</select>-->
-					<!--<input type="text" v-model="seek.address.missProvinceName" class="city" >-
-					<input type="text" v-model="seek.address.missCountyName" class="city" >-
-					<input type="text" v-model="seek.address.missCityName" class="city" >-->
-					<!--{{seek.address.missProvinceName}} - {{seek.address.missCountyName}} - {{seek.address.missCityName}}-->
 				</td>
 			</tr>
 			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">详细地址：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input style="width:40%;" type="text" v-model="seek.missDetailPlace" >
+					<input  style="width:40%;" type="text" v-model="seek.missDetailPlace" >
 					<!--{{seek.missDetailPlace}}-->
 				</td>
 			</tr>
@@ -379,7 +362,7 @@
 			<tr v-if="seek.relationship" onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">与失踪人的关系：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input type="text" v-model="seek.relationship" >
+					<input type="text" class="disbg"  disabled="" v-model="seek.relationship" >
 					<!--{{seek.relationship}}-->
 				</td>
 			</tr>
@@ -393,7 +376,7 @@
 			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">失踪类别：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input type="text" v-model="seek.seekSubtype" />
+					<input type="text" disabled="" class="disbg" v-model="seek.seekSubtype" />
 					<!--{{seek.seekSubtype}}-->
 				</td>
 			</tr>
@@ -428,7 +411,7 @@
 			<tr v-if="seek.extraTel" onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 				<td align="right" valign="middle" class="borderright borderbottom bggray">备用手机：</td>
 				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input type="text" v-model="seek.extraTel" />
+					<input class="disbg" type="text" v-model="seek.extraTel" />
 					<!--{{seek.extraTel}}-->
 				</td>
 			</tr>
@@ -439,17 +422,11 @@
 					{{seek.pubdate}}
 				</td>
 			</tr>
-			<!--<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
-				<td align="right" valign="middle" class="borderright borderbottom bggray">&nbsp;</td>
-				<td align="left" valign="middle" class="borderright borderbottom main-for">
-					<input type="button" @click="submit" value="提交" class="text-but">
-					<input type="button" @click="reset" value="重置" class="text-but">
-				</td>
-			</tr>-->
+
 		</table>
 		<div class="btn">
-			<input type="button" @click="submit" value="提交" class="text-but">
-			<input type="button" @click="reset" value="重置" class="text-but">
+			<input type="button" @click="submit" value="提交修改" class="text-but">
+			<input type="button" @click="reset" value="关闭" class="text-but">
 			<!--<button class="text-but">返回</button>
 			<button class="text-but" @click="savedata">保存修改</button>-->
 		</div>
