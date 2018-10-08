@@ -18,7 +18,7 @@
 			color : black
 		}
 		.bg-gray{
-			background-color: #4E4E4E;
+			background-color: #aaa;
 		}
 	</style>
 </head>
@@ -30,23 +30,25 @@
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
 				<tr v-for="(menu,index) of allMenus" :class="menu.bgGray?'bg-gray':'no-class'">
 					<td>
-						<a 	@click.prevent.exact="commonClick(menu.id,index)"
-							@click.prevent.shift.exact="shiftClick(menu.id,index)">{{menu.description}}</a>
+						<a 	@click.prevent.exact="commonClick(menu.id,index,true)"
+							@click.prevent.shift.exact="shiftClick(menu.id,index,true)">{{menu.description}}</a>
 					</td>
 				</tr>
 			</table>
 		</div>
 		<div>
-			<button>添加至左边</button>
-			<button>全部添加至左边</button>
+			<button @click="addToRight">添加至右边</button>
+			<button @click="addAllToRight">全部添加至右边</button>
+			<button @click="removeFromRight">从右边移除</button>
+			<button @click="submitNewMenus">提交</button>
 		</div>
 		<!-- <p>该角色拥有菜单项</p> -->
 		<div class='roles'>
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr v-for="(menu,index) of roleMenus" :class="menu.bgGray?'bg-gray':'no-class'">
 					<td>
-						<a 	@click.prevent.exact="commonClick(menu.id,index)"
-							@click.prevent.shift.exact="shiftClick(menu.id,index)">{{menu.description}}</a>
+						<a 	@click.prevent.exact="commonClick(menu.id,index,false)"
+							@click.prevent.shift.exact="shiftClick(menu.id,index,false)">{{menu.description}}</a>
 					</td>
 				</tr>
 			</table>
@@ -59,4 +61,4 @@
 <script src="../js/vue.min.js"></script>
 <script src="../js/axios.min.js"></script>
 <script src="../js/seek.global.js"></script>
-<script src="../role/role-menu.js"></script>
+<script src="role-menu.js"></script>

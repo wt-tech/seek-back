@@ -4,7 +4,7 @@ document.onselectstart = function(){
 };
 $(function(){
 	
-	var roleManagement = new Vue({
+	var roleMenuManagement = new Vue({
 		el : '#role',
 		data : {
 			roleId : null,
@@ -13,10 +13,20 @@ $(function(){
 			rawRoleMenus : [],
 			roleMenus : [],
 			
-			tobeAddedId : [],
-			tobeRemovedId : [],
+			leftSelectedIds : [],//左侧选中的菜单项
+			rightSelectedIds : [],//右侧选中的菜单项
 			
-			lastClick : {}
+			leftLastClick : {},
+			rightLastClick : {}
+		},
+		
+		computed : {
+			//最终提交时,发送给服务器端的所有的menuId
+			rightfinalIds : function(){
+				return this.roleMenus.map(function(menu){
+					return menu.id;
+				});
+			}
 		},
 		
 		created : function(){
@@ -24,11 +34,13 @@ $(function(){
 			this.initRawAllMenus();
 			this.initRawRoleMenus();
 			this.initOtherData();
+			this.initLeftLastClick();
+			this.initRightLastClick();
 		},
 		methods : {
 			initOtherData : function(){
-				this.tobeAddedId = new Set([]);
-				this.tobeRemovedId = new Set([]);
+				this.leftSelectedIds = new Set([]);
+				this.rightSelectedIds = new Set([]);
 			},
 			initRoleId : function(){
 				try{
@@ -48,8 +60,13 @@ $(function(){
 			initRawRoleMenus : function(){
 				this.getMenuByRole();
 			},
-			initlastClick : function(){
-				this.lastClick = {
+			initLeftLastClick : function(){
+				this.leftLastClick = {
+					isShfitClick : false
+				}
+			},
+			initRightLastClick : function(){
+				this.rightLastClick = {
 					isShfitClick : false
 				}
 			},
@@ -91,92 +108,229 @@ $(function(){
 			/**
 			 * shift就一定是选中,不要考虑取消选择
 			 */
-			shiftClick : function(menuId,index){
-				this.selectOneRow({id:menuId});//先选中当前行
-				if(this.lastClick.isShfitClick){//上次点击是shift click
-					this.selectManyRows(menuId,index);//选中上次点击行和本次点击行之间的所有行
+			shiftClick : function(menuId,index,isLeft){
+				if(isLeft){
+					this.selectOneRow({id:menuId},isLeft);//先选中当前行
+					if(this.leftLastClick.isShfitClick){//上次点击是shift click
+						this.selectManyRows(menuId,index,isLeft);//选中上次点击行和本次点击行之间的所有行
+					}
+					this.setLeftLastClickShfitClick(menuId,index,true);
+				}else{
+					this.selectOneRow({id:menuId},isLeft);//先选中当前行
+					if(this.rightLastClick.isShfitClick){//上次点击是shift click
+						this.selectManyRows(menuId,index,isLeft);//选中上次点击行和本次点击行之间的所有行
+					}
+					this.setRightLastClickShfitClick(menuId,index,true);
 				}
-				this.setlastClickShfitClick(menuId,index);
 			},
 			
 			
-			commonClick : function(menuId,index){
-				this.toggleOneRow({id:menuId});//选中当前行
-				this.setlastClickCommenClick(menuId,index);
+			commonClick : function(menuId,index,isLeft){
+				if(isLeft){
+					this.toggleOneRow({id:menuId},isLeft);//选中当前行
+					this.setLeftLastClickShfitClick(menuId,index,false);
+				}else{
+					this.toggleOneRow({id:menuId},isLeft);//选中当前行
+					this.setRightLastClickShfitClick(menuId,index,false);
+				}
 			},
 			
-			setlastClickShfitClick : function(menuId,index){
-				this.lastClick = {
-					isShfitClick : true,
+			setLeftLastClickShfitClick : function(menuId,index,isShfit){
+				this.leftLastClick = {
+					isShfitClick : isShfit,
 					menuId : menuId,
 					index : index
 				};
 			},
 			
-			setlastClickCommenClick : function(menuId,index){
-				this.lastClick = {
-					isShfitClick : false,
+			setRightLastClickShfitClick : function(menuId,index,isShfit){
+				this.rightLastClick = {
+					isShfitClick : isShfit,
 					menuId : menuId,
 					index : index
 				};
 			},
-			toggleBgGray : function(menu){
+			
+			toggleBgGray : function(menu,isLeft){
 				var that  = this;
-				that.allMenus.some(function(item,index){
-					if(item.id === menu.id){
-						item.bgGray = !item.bgGray;
-						that.allMenus.splice(index,1,item);
-						return true;
-					}
-				});
+				if(isLeft){
+					that.allMenus.some(function(item,index){
+						if(item.id === menu.id){
+							item.bgGray = !item.bgGray;
+							that.allMenus.splice(index,1,item);
+							return true;
+						}
+					});
+				}else{
+					that.roleMenus.some(function(item,index){
+						if(item.id === menu.id){
+							item.bgGray = !item.bgGray;
+							that.roleMenus.splice(index,1,item);
+							return true;
+						}
+					});
+				}
+				
 			},
-			addBgGray : function(menu){
+			addBgGray : function(menu,isLeft){
 				var that  = this;
-				that.allMenus.some(function(item,index){
-					if(item.id === menu.id){
-						item.bgGray = true;
-						that.allMenus.splice(index,1,item);
-						return true;
-					}
-				});
+				if(isLeft){
+					that.allMenus.some(function(item,index){
+						if(item.id === menu.id){
+							item.bgGray = true;
+							that.allMenus.splice(index,1,item);
+							return true;
+						}
+					});
+				}else{
+					that.roleMenus.some(function(item,index){
+						if(item.id === menu.id){
+							item.bgGray = true;
+							that.roleMenus.splice(index,1,item);
+							return true;
+						}
+					});
+				}
+				
 			},
-			selectOneRow : function(menu){
-				this.addBgGray(menu);
-				this.tobeAddedId.add(menu.id);
+			selectOneRow : function(menu,isLeft){
+				this.addBgGray(menu,isLeft);
+				if(isLeft)
+					this.leftSelectedIds.add(menu.id);
+				else
+					this.rightSelectedIds.add(menu.id);
 			},
-			toggleOneRow : function(menu){
+			toggleOneRow : function(menu,isLeft){
 
 				var that  = this;
 				var bgGray = false;
-				that.allMenus.some(function(item,index){
+				var menus = isLeft? that.allMenus : that.roleMenus;
+				menus.some(function(item,index){
 					if(item.id === menu.id){
 						bgGray = item.bgGray;
 						return true;
 					}
 				});
 				
-				if(bgGray)//toggle前是true
-					this.tobeAddedId.delete(menu.id);
-				else//toggle前是false
-					this.tobeAddedId.add(menu.id);
+				if(isLeft){
+					if(bgGray)//toggle前是true
+						this.leftSelectedIds.delete(menu.id);
+					else//toggle前是false
+						this.leftSelectedIds.add(menu.id);
+				}else{
+					if(bgGray)//toggle前是true
+						this.rightSelectedIds.delete(menu.id);
+					else//toggle前是false
+						this.rightSelectedIds.add(menu.id);
+				}
+				
 
-				this.toggleBgGray(menu);
+				this.toggleBgGray(menu,isLeft);
+			},
+
+			selectManyRows : function(menuId,index,isLeft){
+				var that = this;
+				if(isLeft){
+					if(that.leftLastClick.isShfitClick){
+						var lastClick = that.leftLastClick.index
+						var beginIndex = index <= lastClick? index : lastClick;
+						var endIndex = lastClick + index - beginIndex;
+						for(;beginIndex <= endIndex;beginIndex++){
+							that.selectOneRow(that.allMenus[beginIndex],isLeft);
+						}
+					}
+				}else{
+					if(that.rightLastClick.isShfitClick){
+						var lastClick = that.rightLastClick.index
+						var beginIndex = index <= lastClick? index : lastClick;
+						var endIndex = lastClick + index - beginIndex;
+						for(;beginIndex <= endIndex;beginIndex++){
+							that.selectOneRow(that.roleMenus[beginIndex],isLeft);
+						}
+					}
+				}
+			},	
+		
+			addToRight : function(){
+				var that = this;
+				var leftSelectedIds = that.leftSelectedIds;
+				that.insertIntoRight(leftSelectedIds);				
+			},
+			addAllToRight : function(){
+				var that = this;
+				var allIds = that.rawAllMenus.map(function(menu){
+					return menu.id;
+				});
+				that.insertIntoRight(allIds);
+			},
+			
+			insertIntoRight : function(ids){
+				var newMenus = this.roleMenus.slice(0);
+				var temp = {};
+				for(var id of ids){
+					temp = {};
+					if(!this.roleMenus.some(function(menu){return menu.id === id;}))//之前不存在,添加
+					{
+						this.allMenus.some(function(menu){
+							if(menu.id === id){
+								$.extend(temp,menu);
+								return true;
+							}
+						});
+						newMenus.push(temp);
+					}
+				}
+				this.roleMenus = newMenus;
+				console.log(this.roleMenus);
+			},
+			
+			removeFromRight : function(){
+				var newMenus = this.roleMenus.slice(0);
+				var ids = this.rightSelectedIds;
+				for(var id of ids){
+					newMenus.remove(id);
+				}
+				this.roleMenus = newMenus;
+				this.rightSelectedIds = new Set([]);
+			},
+			
+			
+			roleMenusNotChanged : function(){
+				var that = this;
+				if(that.rightfinalIds.length === that.rawRoleMenus.length){
+					return that.rawRoleMenus.every(function(menu){
+						return that.rightfinalIds.some(function(id){
+							return id == menu.id;
+						})
+					});
+				}
+				return false;
 			},
 			
 			/**
-			 * 选择多行,emmmm....
+			 * 提交数据
 			 */
-			selectManyRows : function(menuId,index){
-				var that = this;
-				if(that.lastClick.isShfitClick){
-					var lastClickIndex = that.lastClick.index
-					var beginIndex = index <= lastClickIndex? index : lastClickIndex;
-					var endIndex = lastClickIndex + index - beginIndex;
-					for(;beginIndex <= endIndex;beginIndex++){
-						that.selectOneRow(that.allMenus[beginIndex]);
-					}
+			submitNewMenus : function(){
+				//检测权限是否有变化,若无变化,不发送请求
+				if(this.roleMenusNotChanged()){
+					alert('权限并未修改,请修改后再点击提交');
+					return;
 				}
-			}	
+				
+				var params = {
+					roleId : this.roleId,
+					menuIds : this.rightfinalIds.slice(0)
+				}
+				
+				jsonAxios.put('back/role/menus',params).then(function(res){
+					if(res.status == STATUS_OK && res.data.status == SUCCESS){
+						alert("角色权限修改成功");
+					}
+				}).catch(function(err){
+					unknownError(err);
+				});
+			}
+		
 		}
 	});
 })

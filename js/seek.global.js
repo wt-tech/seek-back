@@ -101,7 +101,7 @@ Array.prototype.indexOfByElementId = function(elementId){
 
 Array.prototype.remove = function(elementId){
 	var result = false;
-	var index = this.indexOfByElementId; 
+	var index = this.indexOfByElementId(elementId); 
 	if(index != -1){
 		this.splice(index,1);
 		result = true;
