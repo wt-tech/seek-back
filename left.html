@@ -18,7 +18,7 @@
 
 			function initMenus() {
 
-				simpleAxios.get('back/menus').then(function(res) {
+				simpleAxios.get('back/user/menus').then(function(res) {
 					if (res.status == STATUS_OK && res.data.status == SUCCESS) {
 						let menus = [];
 						menus = res.data.menus;
@@ -59,17 +59,13 @@
         <a href="./volunteer/main-volunteer.html" target="mainFrame" onFocus="this.blur()">志愿者列表</a>
       </div>
 
-	  <div>
+	  <div id="menu_authentication" style="display:none">
 		 <span>用户认证管理</span>
 		 <a href="./authentication/main-authentication.html" target="mainFrame" onFocus="this.blur()">用户认证列表</a>
 	  </div>
-	  <div>
+	  <div id="menu_account" style="display:none">
 		 <span>账号密码管理</span>
 		 <a href="main-html/updatePassword.html" target="mainFrame" onFocus="this.blur()">修改密码</a>
-	  </div>
-	  <div>
-		 <span>角色管理</span>
-		 <a href="adminList/adminList.html" target="mainFrame" onFocus="this.blur()">角色管理</a>
 	  </div>
 	  <div id="menu_permission" style="display:none">
 		  <span>权限管理</span>
