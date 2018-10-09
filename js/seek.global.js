@@ -11,6 +11,15 @@ const BASEURL = 'http://192.168.0.109:8080/seek01/';
 //const BASEURL = 'http://192.168.0.177:8888/seek/'
 
 
+<<<<<<< HEAD
+=======
+//const BASEURL = 'http://192.168.0.103:8080/seek01/';
+
+const BASEURL = 'http://192.168.0.177:8888/seek/'
+//const BASEURL = 'https://www.qghls.com/seek/'
+
+>>>>>>> fa0d69ba092e497dc0d2fcef89a9384238b7b95d
+
 
 
 //新建axios实例,普通form表单
@@ -44,12 +53,12 @@ var jsonAxios = axios.create({
 });
 
 
- function backEndExceptionHanlder(res,message=null){
+ function backEndExceptionHanlder(res,message=null,url="../login.html"){
 	if(res.status==STATUS_OK && res.data.status == FAIL){//后端的GloblalExceptionHandler抛出的错误信息
 		let tips = res.data.tips;
 		alert(tips?tips:message);
 		if(tips=="请先登录!")
-			window.open("../login.html");
+			window.open(url);
 	}else
 		alert('未知错误');
 }
@@ -107,7 +116,7 @@ Array.prototype.indexOfByElementId = function(elementId){
 
 Array.prototype.remove = function(elementId){
 	var result = false;
-	var index = this.indexOfByElementId; 
+	var index = this.indexOfByElementId(elementId); 
 	if(index != -1){
 		this.splice(index,1);
 		result = true;

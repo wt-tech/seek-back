@@ -36,7 +36,7 @@ a{
 </style>
 </head>
 <body>
-<div id="authentication">
+<div id="admin">
 <table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
   <tr>
     <td align="left" valign="top">
@@ -61,22 +61,18 @@ a{
 					<th align="center" valign="middle" class="borderright" style="display: none;">全选</th>
 					<th align="center" valign="middle" class="borderright">序号</th>
 					<th align="center" valign="middle" class="borderright">姓名</th>
-					<th align="center" valign="middle" class="borderright">身份证号</th>
-					<!--<th align="center" valign="middle" class="borderright">正面照</th>
-					<th align="center" valign="middle" class="borderright">反面照</th>-->
-					<th align="center" valign="middle" class="borderright">所在地址</th>
-					<th align="center" valign="middle" class="borderright">联系方式</th>
-					<th align="center" valign="middle" class="borderright">认证结果</th>
+					<th align="center" valign="middle" class="borderright">账号</th>
+					<th align="center" valign="middle" class="borderright">密码</th>
 					<th align="center" valign="middle">操作</th>
 				</tr>
-				<tr v-for="(authentication,index) of authenticationList" class="cont-list"> 
-						<td align="center" valign="middle" class="borderbottom" style="display: none;"><input type="checkbox" id="uuihoo" value="uuihoo"></td>
-						<td is="std" v-for="(field,property) of authentication" v-if="property!='id'"  :content="field"></td>
-						<td align="center" valign="middle" class="borderbottom">
-							<a @click.prevent="passauthentication(authentication)" class="add">通过</a>
-							<span class="gray">&nbsp;|&nbsp;</span>
-							<a @click.prevent="notpassauthentication(authentication)" onFocus="this.blur()" class="add">不通过</a>
-						</td>
+				<tr v-for="(admin,index) of comadmList">
+							<td is="vtd" v-for="(field,property) of admin" v-if="property!='id' && property!=index" :content="field"></td>
+							
+							<td align="center" valign="middle" class="borderbottom">
+								<!--<a @click.prevent="turnToEditPage(seek)" class="add">编辑</a>
+								<span class="gray">&nbsp;|&nbsp;</span>-->
+								<a @click.prevent="turnToUpdatePage(admin)" onFocus="this.blur()" class="add">编辑角色</a>
+							</td>
 				</tr>
 				<!-- <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
 					<td align="center" valign="middle" class="borderright borderbottom">1</td>
@@ -90,11 +86,7 @@ a{
 		</td>
 	</tr>
   <tr>
-<<<<<<< HEAD
-    <td align="left" valign="top" class="fenye">{{totalCount}} 条数据{{currentPageNo}}/{{totalPage}}页&nbsp;&nbsp;
-=======
-    <td align="left" valign="top" class="fenye">{{totalCount}} 条数据 {{currentPageNo}}/{{totalPage}} 页&nbsp;&nbsp;
->>>>>>> fa0d69ba092e497dc0d2fcef89a9384238b7b95d
+    <td align="left" valign="top" class="fenye">{{totalCount}} 条数据 1/1 页&nbsp;&nbsp;
     	<a href="#" @click.prevent="firstPage()" target="mainFrame" onFocus="this.blur()">首页</a>&nbsp;&nbsp;
     	<a href="#" @click.prevent="prevPage()" target="mainFrame" onFocus="this.blur()">上一页</a>&nbsp;&nbsp;
     	<a href="#" @click.prevent="nextPage()" target="mainFrame" onFocus="this.blur()">下一页</a>&nbsp;&nbsp;
@@ -109,4 +101,4 @@ a{
 <script src="../js/vue.min.js"></script>
 <script src="../js/axios.min.js"></script>
 <script src="../js/seek.global.js"></script>
-<script src="../main-js/authentication.js"></script>
+<script src="../main-js/adminList.js"></script>

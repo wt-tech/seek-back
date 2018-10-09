@@ -88,6 +88,7 @@ $(function(){
 						that.commentList = commentLists;
 						that.totalCount = res.data.totalCount
 						that.totalPage = Math.ceil(res.data.totalCount/5)
+						console.log(that.totalPage)
 						
 					}else
 						backEndExceptionHanlder(res);
@@ -102,27 +103,34 @@ $(function(){
 			},
 		
 		    deleteSome () {
-		      console.log(this.mybox)
+		    	var that = this
+		      console.log('外层：',that.mybox,'内层：',that.mybox2)
 //		      var topcomentId = {}
 //		      var comentId = {}
 		      var params = new FormData()
-		      params.append('topcomentId',this.mybox);
-		      params.append('comentId',this.mybox2)
-		      fileAxios.post("topcoment/back/deletecoment",params).then(function(res){
+		      params.append('topcomentId',that.mybox);
+		      params.append('comentId',that.mybox2)
+		      simpleAxios.post("topcoment/back/deletecoment",params).then(function(res){
 		      		console.log(res)
 					if(res.status == STATUS_OK && res.data.status==SUCCESS){
+						
 						//TODO 
 						alert('删除成功');
-						this.commentList = this.commentList.filter(item => this.mybox.indexOf(item.id) === -1);
-				        this.commentList = this.commentList.filter(item => this.mybox2.indexOf(item.replyId) === -1);
-				        this.mybox = [];
-				        this.mybox2 = [];
+						that.delet()
 					}else
 						backEndExceptionHanlder(res);
 				}).catch(function(err){
 					unknownError(err);
 				})
-		      
+				
+		       
+		    },
+		    delet:function(){
+		    	var that = this
+		    	that.commentList = that.commentList.filter(item => that.mybox.indexOf(item.id) === -1);
+		        that.commentList = that.commentList.filter(item => that.mybox2.indexOf(item.replyId) === -1);
+		        that.mybox = [];
+		        that.mybox2 = [];
 		    },
 			checkedOne:function(comment){
 				console.log(comment)
@@ -167,6 +175,9 @@ $(function(){
 			turnToFirstPage:function(){
 				var that = this
 				that.initComment(1)
+//				that.ismybox = [];
+				that.emptylength()
+
 			},
 			turnToPrePage:function(){
 				var that = this
@@ -174,21 +185,33 @@ $(function(){
 					that.currentPageNo -- 
 					var pages = that.currentPageNo
 					that.initComment(pages)
+					that.emptylength()
+//					that.ismybox = []	;
 				}
 				
 			},
 			turnToNextPage:function(){
 				var that = this
 				if(that.currentPageNo<that.totalPage){
-					that.currentPageNo -- 
+					that.currentPageNo ++ 
 					var pages = that.currentPageNo
 					that.initComment(pages)
+					that.emptylength()
+//					that.ismybox = [];
 				}
 			},
 			turnToLastPage:function(){
 				var that = this
 				var pages = that.totalPage
-				that.initComment(pages)
+				that.emptylength()
+//				that.ismybox = [];
+			},
+			//点击分页时清空数据
+			emptylength:function(){
+				var that = this
+				that.ismybox = [];
+				that.mybox = [];
+				that.mybox2 = []
 			}
 
 			

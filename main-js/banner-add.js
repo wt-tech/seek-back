@@ -63,7 +63,7 @@ $(function(){
 			appendImgs : function(params){
 				var imgList = $('#imgInput')[0].files;
 				for(var img of imgList){
-					params.append("file",img);
+					params.append("bannerImg",img);
 				}
 				return params;
 			}

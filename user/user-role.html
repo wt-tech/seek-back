@@ -1,0 +1,105 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>角色管理</title>
+	<link rel="shortcut icon" href="../images/main/favicon.ico" />
+	<style>
+		#role{
+			margin: 0 auto;
+			width:1100px;
+			margin-top:10%;
+		}
+		.roles{
+			width:400px;
+			height:300px;
+			border:solid 1px #777;
+		}
+		#role > div{
+			float: left;
+		}
+		a{
+			text-decoration: none;
+			color : black;
+			padding-left: 15px;
+			font-size:15px;
+		}
+		.bg-gray{
+			background-color: #B3E1FA;
+		}
+		ul,ol,li{
+			list-style: none;
+			margin:0;
+			padding:0;
+		}
+		li{
+			margin:20px 40px;
+		}
+		li button{
+			width:170px;
+			padding: 5px 20px;
+			color:#fff;
+			background-color:#4BB6DC;
+			border: solid 1px #4BB6DC;
+			background-image: linear-gradient(bottom, rgb(171,27,27) 0%, rgb(212,51,51) 100%);
+			border-radius: 5px;
+		}
+		.roles table tr td{
+			height:30px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="role">
+		<!-- <p>所有菜单项</p> -->
+		<div class='roles'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+				<tr v-for="(role,index) of allRoles" :class="role.bgGray?'bg-gray':'no-class'">
+					<td>
+						<a 	@click.prevent.exact="commonClick(role.id,index,true)"
+							@click.prevent.shift.exact="shiftClick(role.id,index,true)">{{role.description}}</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<ul>
+				<li>
+					<button @click="addToRight">添加至右边&gt;</button>
+				</li>
+				<li>
+					<button @click="addAllToRight">全部添加至右边&gt;&gt;</button>
+				</li>
+				<li>
+					<button @click="removeFromRight">从右边移除&lt;</button>
+				</li>
+				<li>
+					<button @click="submitNewRoles">提交</button>
+				</li>
+			</ul>
+			
+			
+			
+			
+		</div>
+		<!-- <p>该角色拥有菜单项</p> -->
+		<div class='roles'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr v-for="(role,index) of userRoles" :class="role.bgGray?'bg-gray':'no-class'">
+					<td>
+						<a 	@click.prevent.exact="commonClick(role.id,index,false)"
+							@click.prevent.shift.exact="shiftClick(role.id,index,false)">{{role.description}}</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="../js/axios.min.js"></script>
+<script src="../js/seek.global.js"></script>
+<script src="user-role.js"></script>

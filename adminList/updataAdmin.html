@@ -51,7 +51,7 @@
 			height: 24px;
 			line-height: 24px;
 			width: 55px;
-			background: url(images/main/list_input.jpg) no-repeat left top;
+			background: url(../images/main/list_input.jpg) no-repeat left top;
 			border: none;
 			cursor: pointer;
 			font-family: "Microsoft YaHei", "Tahoma", "Arial", '宋体';
@@ -62,7 +62,7 @@
 		}
 
 		#search a.add {
-			background: url(images/main/add.jpg) no-repeat 0px 6px;
+			background: url(../images/main/add.jpg) no-repeat 0px 6px;
 			padding: 0 10px 0 26px;
 			height: 40px;
 			line-height: 40px;
@@ -84,7 +84,7 @@
 
 		#main-tab th {
 			font-size: 12px;
-			background: url(../images/main/list_bg.jpg) repeat-x;
+			background: url(images/main/list_bg.jpg) repeat-x;
 			height: 32px;
 			line-height: 32px;
 		}
@@ -248,9 +248,6 @@
 		.disbg{
 			background:#fff;
 		}
-		.fenye{
-			float: right;
-		}
 	</style>
 </head>
 
@@ -259,39 +256,33 @@
 	<div id="seeks">
 		<form method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
-			<tr>
-				<th align="center" valign="middle" class="borderright">序号</th>
-				<th align="center" valign="middle" class="borderright">昵称</th>
-				<th align="center" valign="middle" class="borderright">时间</th>
-				<th align="center" valign="middle" class="borderright">内容</th>
-				<th align="center" valign="middle"><input type="checkbox" name="check" :checked="commentList.length === mybox.length+mybox2.length" @click="checkedAll"/>全选</th>
-			</tr>
-			
-			<tr v-for="(comment,index) of sortcommentList" >
-				<td is="vtd" v-for="(field,property) of comment" v-if="property!='id' && property!='replyId'"   :content="field" align="center" valign="middle" class="borderright borderbottom borderleft"></td>
-				<!--<td align="center" valign="middle" class="borderright borderbottom borderleft">{{item.content}}</td>-->
-				
-				<td align="center" valign="middle" class="borderbottom" >
-					<input type="checkbox" :checked="ismybox.indexOf(comment.index)>=0" name="checkboxinput"   @click="checkedOne(comment)"  />
-					<!--<a @click.prevent="deleteSeekRequest(comment)" onFocus="this.blur()" class="add">删除</a>-->
+			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+				<td align="right" valign="middle" class="borderright borderbottom bggray">ID：</td>
+				<td align="left" valign="middle" class="borderright borderbottom main-for">
+					<!--<input type="text" v-model="banner.imgName" class="text-word">-->
+						{{id}}
 				</td>
 			</tr>
-
+			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+				<td align="right" valign="middle" class="borderright borderbottom bggray">用户名称：</td>
+				<td align="left" valign="middle"  class="borderright borderbottom main-for">
+					{{userName}}
+				</td>
+			</tr>
+			<tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+				<td align="right" valign="middle" class="borderright borderbottom bggray">账号：</td>
+				<td align="left" valign="middle" class="borderright borderbottom main-for">
+					{{userCode}}
+				</td>
+			</tr>
+			
+			
+			
 
 		</table>
-		<div class="fenye">
-			{{currentPageNo}}/{{totalPage}} 页
-			<a href="#" @click.prevent="turnToFirstPage" >首页</a>&nbsp;&nbsp;
-			<a href="#" @click.prevent="turnToPrePage" >上一页</a>&nbsp;&nbsp;
-			<a href="#" @click.prevent="turnToNextPage" >下一页</a>&nbsp;&nbsp;
-			<a href="#" @click.prevent="turnToLastPage" >尾页</a>
-		</div>
 		<div class="btn">
-			<input type="button" onclick="window.close()" value="返回" class="text-but">
-			<input type="button" @click="deleteSome" value="批量删除" class="text-but">
-			
-			<!--<button class="text-but">返回</button>
-			<button class="text-but" @click="savedata">保存修改</button>-->
+			<input type="button" @click="submit" value="提交修改" class="text-but">
+			<input type="button" @click="reset" value="关闭" class="text-but">
 		</div>
 		</form>
 	</div>
@@ -304,4 +295,4 @@
 <script src="../js/vue.min.js"></script>
 <script src="../js/axios.min.js"></script>
 <script src="../js/seek.global.js"></script>
-<script src="../main-js/comment.js"></script>
+<script src="../main-js/updataAdmin.js"></script>
