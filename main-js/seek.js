@@ -86,8 +86,11 @@ $(function(){
 					};
 					jsonAxios.post('seek/back/listseek',params).then(function(res){
 						console.log('寻亲',res.data)
+						var resData = res.data
 						if(res.status == STATUS_OK && res.data.status == SUCCESS){
-							that.rawSeekList = res.data.seeks;
+							that.totalCount = resData.totalCount;
+							that.totalPage = Math.ceil(resData.totalCount/resData.pageSize);
+							that.rawSeekList = resData.seeks;
 						}else
 							backEndExceptionHanlder(res);
 					}).catch(function(res){
@@ -101,8 +104,11 @@ $(function(){
 					};
 					jsonAxios.post('seek/back/listseek',params).then(function(res){
 						console.log('寻人',res.data)
+						var resData = res.data
 						if(res.status == STATUS_OK && res.data.status == SUCCESS){
-							that.rawSeekList = res.data.seeks;
+							that.totalCount = resData.totalCount;
+							that.totalPage = Math.ceil(resData.totalCount/resData.pageSize);
+							that.rawSeekList = resData.seeks;
 						}else
 							backEndExceptionHanlder(res);
 					}).catch(function(res){
