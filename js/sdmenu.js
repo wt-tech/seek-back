@@ -22,7 +22,7 @@ SDMenu.prototype.init = function() {
 				break;
 			}
 	}
-	/* if (this.remember) {
+	 if (this.remember) {
 		var regex = new RegExp("sdmenu_" + encodeURIComponent(this.menu.id) + "=([01]+)");
 		var match = regex.exec(document.cookie);
 		if (match) {
@@ -32,7 +32,7 @@ SDMenu.prototype.init = function() {
 			}
 				
 		}
-	} */
+	} 
 };
 SDMenu.prototype.toggleMenu = function(submenu) {
 	if (submenu.className == "collapsed")

@@ -69,7 +69,7 @@ $(function(){
 			turnToPermissionAccessUpdatePage : function(role){
 				var id = role.id;
 				var url = "role-permission.html?id="+id;
-				window.open(url);
+				window.location.href = url;
 			},
 			turnToMenuAccessUpdatePage : function(role){
 				var id = role.id;

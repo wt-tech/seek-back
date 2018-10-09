@@ -21,7 +21,7 @@
 				simpleAxios.get('back/user/menus').then(function(res) {
 					if (res.status == STATUS_OK && res.data.status == SUCCESS) {
 						let menus = [];
-						menus = res.data.menus;
+						menus = res.data.userMenus;
 						console.log(menus);
 						for (var menu of menus) {
 							if ($('#' + menu.menuName).attr('style'))
