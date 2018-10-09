@@ -4,7 +4,29 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>后台管理登录界面</title>
     <link href="css/alogin.css" rel="stylesheet" type="text/css" />
-
+	<style>
+		.register{
+			background:#3F7CE1;
+			color:#fff;
+			width:60px;
+			height:25px;
+			font-size:16px;
+			height:30px;
+			line-height: 30px;
+			padding: 0px 20px;
+			text-align: center;
+			border-radius:5px;
+			margin-left:55px;
+			margin-top:10px;
+		}
+		.register:hover{
+			cursor: pointer
+		}
+		.register a {
+			text-decoration:none;
+			color:#fff;
+		}
+	</style>
 
 </head>
 <body>
@@ -29,7 +51,14 @@
             <li class="topE"></li>
             <li class="middle_A"></li>
             <li class="middle_B"></li>
-            <li class="middle_C"><span class="btn"><input name="" type="image" @click.prevent='formSubmit()' src="images/login/btnlogin.gif" /></span></li>
+            <li class="middle_C">
+            	<span class="btn">
+            		<input name="" type="image" @click.prevent='formSubmit()' src="images/login/btnlogin.gif" />
+            	</span>
+        		<div class="register">
+        			<a href='./regester.html' target="_blank">注册</a>
+        		</div>
+            </li>
             <li class="middle_D"></li>
             <li class="bottom_A"></li>
         </ul>

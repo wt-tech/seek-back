@@ -5,21 +5,51 @@
 	<title>角色管理</title>
 	<link rel="shortcut icon" href="../images/main/favicon.ico" />
 	<style>
+		#role{
+			margin: 0 auto;
+			width:1100px;
+			margin-top:10%;
+		}
 		.roles{
 			width:400px;
 			height:300px;
-			border:solid 2px #777;
+			border:solid 1px #777;
 		}
 		#role > div{
 			float: left;
 		}
 		a{
 			text-decoration: none;
-			color : black
+			color : #000;			
+			padding-left: 15px;
+			padding-top:10px;
+			font-size:15px;
 		}
 		.bg-gray{
-			background-color: #aaa;
+			background-color: #B3E1FA;
+			color:#fff;
 		}
+		ul,ol,li{
+			list-style: none;
+			margin:0;
+			padding:0;
+		}
+		li{
+			margin:20px 40px;
+		}
+		li button{
+			width:170px;
+			padding: 5px 20px;
+			color:#fff;
+			background-color:#4BB6DC;
+			border: solid 1px #4BB6DC;
+			background-image: linear-gradient(bottom, rgb(171,27,27) 0%, rgb(212,51,51) 100%);
+			border-radius: 5px;
+		}
+		.roles table tr td{
+			height:30px;
+		}
+		
 	</style>
 </head>
 
@@ -37,16 +67,29 @@
 			</table>
 		</div>
 		<div>
-			<button @click="addToRight">添加至右边</button>
-			<button @click="addAllToRight">全部添加至右边</button>
-			<button @click="removeFromRight">从右边移除</button>
-			<button @click="submitNewMenus">提交</button>
+			<ul>
+				<li>					
+					<button @click="addToRight">添加至右边&gt;</button>
+				</li>
+				<li>
+					<button @click="addAllToRight">全部添加至右边&gt;&gt;</button>
+				</li>
+				<li>
+					<button @click="removeFromRight">从右边移除&lt;</button>
+				</li>
+				<li>
+					<button @click="submitNewMenus">提交</button>
+				</li>
+			</ul>
+			
+			
+			
 		</div>
 		<!-- <p>该角色拥有菜单项</p> -->
 		<div class='roles'>
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr v-for="(menu,index) of roleMenus" :class="menu.bgGray?'bg-gray':'no-class'">
-					<td>
+					<td height='50'>
 						<a 	@click.prevent.exact="commonClick(menu.id,index,false)"
 							@click.prevent.shift.exact="shiftClick(menu.id,index,false)">{{menu.description}}</a>
 					</td>

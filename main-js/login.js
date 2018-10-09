@@ -25,7 +25,11 @@ $(function(){
                 }).catch(function(err){
                     unknownError(err);
                 })
-            }
+            },
+//          register : function(){
+//          	var url = './regester.html';
+//          	window.location.href = url
+//          }
         }
     });
 })
