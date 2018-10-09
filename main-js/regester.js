@@ -86,6 +86,7 @@ $(function(){
 				that.realName = '';
 				that.idCard = '';
 			},
+			//判断身份证号码
 			isCardNo : function(card){ 
 				var that = this
 				// 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X 
@@ -97,6 +98,7 @@ $(function(){
 				} 
 				return true
 			},
+			//判断中文
 			funcChina : function (obj){ 
 				
 				if(/.*[\u4e00-\u9fa5]+.*$/.test(obj)) 
@@ -105,21 +107,25 @@ $(function(){
 				} 
 				return true; 
 			}, 
+			//判断是否被注册
 			preflight:function(){
 				var that = this
 				var username = that.username;
 				var params = new FormData();
 				params.append('username',username)
-				simpleAxios.get('preflight?username='+username).then(function(res){
-					if(res.status == STATUS_OK && res.data.status == SUCCESS){
-						that.nameErr = ''
-						console.log(res)
-					}else{
-						that.nameErr = '用户名已被注册'
-					}
-				}).catch(function(err){
-					
-				})
+				if(username != ''){
+					simpleAxios.get('preflight?username='+username).then(function(res){
+						if(res.status == STATUS_OK && res.data.status == SUCCESS){
+							that.nameErr = ''
+							console.log(res)
+						}else{
+							that.nameErr = '用户名已被注册'
+						}
+					}).catch(function(err){
+						
+					})
+				}
+				
 			}
 		},
 	});
