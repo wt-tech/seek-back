@@ -44,7 +44,7 @@ $(function() {
 		methods: {
 			initRawPermissionResultList: function() {
 				var that = this;
-				simpleAxios.get('back/permissions').then(function(res) {
+				simpleAxios.get('back/uri/permissions').then(function(res) {
 					if(res.status == STATUS_OK && res.data.status == SUCCESS) {
 						var resData = res.data;
 						that.rawPermissionList = resData.permissions.map(function(permission){
