@@ -26,10 +26,10 @@ $(function(){
                     unknownError(err);
                 })
             },
-            register : function(){
-            	var url = './regester.html';
-            	window.location.href = url
-            }
+//          register : function(){
+//          	var url = './regester.html';
+//          	window.location.href = url
+//          }
         }
     });
 })

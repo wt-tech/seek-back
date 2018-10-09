@@ -22,6 +22,10 @@
 		.register:hover{
 			cursor: pointer
 		}
+		.register a {
+			text-decoration:none;
+			color:#fff;
+		}
 	</style>
 
 </head>
@@ -51,8 +55,8 @@
             	<span class="btn">
             		<input name="" type="image" @click.prevent='formSubmit()' src="images/login/btnlogin.gif" />
             	</span>
-        		<div class="register" @click.prevent='register()'>
-        			<a>注册</a>
+        		<div class="register">
+        			<a href='./regester.html' target="_blank">注册</a>
         		</div>
             </li>
             <li class="middle_D"></li>
