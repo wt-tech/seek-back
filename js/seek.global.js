@@ -7,13 +7,18 @@ const SUCCESS = 'success';
 const FAIL = 'fail';
 const TEN = 10;
 
+const BASEURL = 'http://192.168.0.109:8080/seek01/';
+//const BASEURL = 'http://192.168.0.177:8888/seek/'
 
 
+<<<<<<< HEAD
+=======
 //const BASEURL = 'http://192.168.0.103:8080/seek01/';
 
 const BASEURL = 'http://192.168.0.177:8888/seek/'
 //const BASEURL = 'https://www.qghls.com/seek/'
 
+>>>>>>> fa0d69ba092e497dc0d2fcef89a9384238b7b95d
 
 
 
