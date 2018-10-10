@@ -79,6 +79,9 @@ $(function(){
 				}
 			},
 			
+			/**
+			 * 点击首页,下一页,上一页,尾页均需要调用次函数
+			 */
 			getAllPermissionsByPageInfo : function(){
 				var that = this;
 				var pageInfo = that.leftPageInfo;
