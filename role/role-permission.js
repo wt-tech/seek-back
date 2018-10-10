@@ -10,20 +10,32 @@ $(function(){
 			roleId : null,
 			rawAllPermissions : [],
 			allPermissions : [],
+			
+			
 			rawRolePermissions : [],
-			rolePermissions : [],
+			rolePermissions : [],//存放该角色'暂时拥有'(即在右边框框中)的所有权限
+			rightCurrentPagePermissions : [],//右侧当前页展示的permissions,为什么左侧没有对应的?因为左侧的是只读的.右侧是可写的.
 			
 			leftSelectedIds : [],//左侧选中的权限
 			rightSelectedIds : [],//右侧选中的权限
 			
 			leftLastClick : {},
 			rightLastClick : {},
+			
 			leftPageInfo : {
 				currentPage : 1,
 				totalPages : 1,
 				totalCounts : 1,
 				pageSize : 10
-			}
+			},
+			
+			rightPageInfo : {
+				currentPage : 1,
+				totalPages : 1,
+				totalCounts : 1,
+				pageSize : 10
+			},
+			
 		},
 		computed : {
 			//最终提交时,发送给服务器端的所有的permissionId
@@ -31,7 +43,8 @@ $(function(){
 				return this.rolePermissions.map(function(permission){
 					return permission.id;
 				});
-			}
+			},
+			
 		},
 		
 		created : function(){
@@ -80,7 +93,7 @@ $(function(){
 			},
 			
 			/**
-			 * 点击首页,下一页,上一页,尾页均需要调用次函数
+			 * 初始化,点击首页,下一页,上一页,尾页均需要调用次函数
 			 */
 			getAllPermissionsByPageInfo : function(){
 				var that = this;
@@ -95,13 +108,49 @@ $(function(){
 				});
 			},
 			
+			/**
+			* 初始化,点击首页,下一页,上一页,尾页,添加至右边,从右边移除均需要调用次函数
+			* reCalculateRightPageInfo之后,有可能会调用该函数
+			*/
+			getRightCurrentPagePermissions : function(){
+				var that = this;
+				var pageInfo = this.rightPageInfo;
+				that.rightCurrentPagePermissions = that.rolePermissions.filter(function(permission,index){
+					return index >= (pageInfo.currentPage-1) * pageInfo.pageSize && index < (pageInfo.currentPage) * pageInfo.pageSize
+				}).map(function(permission,index){
+					var computePermission = {};
+					$.extend(computePermission,permission);
+					computePermission.bgGray = false;
+					return computePermission;
+				});
+				// return that.rightCurrentPagePermissions;
+			},
+			
+			/**
+			 * 当rolePermissions变化时触发,但又不能声明为计算属性,因为currentPage无法由计算得出
+			 * 重新计算 rightPageInfo 因为右边的框框是变化的,这里主要是重新计算
+			 * totalpages以及currentPage.
+			 * rolePermissions保存了右边框框所有的权限,因此根据此数组来计算
+			 */
+			reCalculateRightPageInfo : function(){//TODO 应该在初始化,添加,移除中调用
+				var that = this;
+				var currentPage = that.rightPageInfo.currentPage;
+				var oldTotalPages = that.rightPageInfo.totalPages;
+				var newTotalPages = Math.ceil(that.rolePermissions.length/that.rightPageInfo.pageSize);
+				// if(newTotalPages == oldTotalPages) return;//总页数没改变,直接返回.
+				if(newTotalPages != oldTotalPages && currentPage == oldTotalPages){//当前页是未新增之前最后一页,现在总页数改变
+					//让当前页,处于最后一页
+					that.rightPageInfo.totalPages = newTotalPages;
+					that.rightPageInfo.currentPage = newTotalPages;
+				}
+				that.getRightCurrentPagePermissions();
+			},
+			
 			getAllPermission : function(){
 				var that = this;
 				simpleAxios.get('back/permissions').then(function(res){
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
-						console.log('abc');
 						that.rawAllPermissions = res.data.permissions;
-						console.log(res.data.permissions.length/that.leftPageInfo.pageSize);
 						that.leftPageInfo.totalPages = Math.ceil(res.data.permissions.length/that.leftPageInfo.pageSize);
 						that.setLeftPermissionsLastClickAndSelectedIds();
 					}else
@@ -122,6 +171,8 @@ $(function(){
 							computePermission.bgGray = false;
 							return computePermission;
 						});
+						that.reCalculateRightPageInfo();//初始化rightPageInfo
+						// that.getRightCurrentPagePermissions();
 					}else
 						backEndExceptionHanlder(res);
 				}).catch(function(res){
@@ -185,10 +236,10 @@ $(function(){
 						}
 					});
 				}else{
-					that.rolePermissions.some(function(item,index){
+					that.rightCurrentPagePermissions.some(function(item,index){//TODO
 						if(item.id === permission.id){
 							item.bgGray = !item.bgGray;
-							that.rolePermissions.splice(index,1,item);
+							that.rightCurrentPagePermissions.splice(index,1,item);
 							return true;
 						}
 					});
@@ -206,10 +257,10 @@ $(function(){
 						}
 					});
 				}else{
-					that.rolePermissions.some(function(item,index){
+					that.rightCurrentPagePermissions.some(function(item,index){//TODO
 						if(item.id === permission.id){
 							item.bgGray = true;
-							that.rolePermissions.splice(index,1,item);
+							that.rightCurrentPagePermissions.splice(index,1,item);//TODO
 							return true;
 						}
 					});
@@ -227,7 +278,7 @@ $(function(){
 			toggleOneRow : function(permission,isLeft){
 				var that  = this;
 				var bgGray = false;
-				var permissions = isLeft? that.allPermissions : that.rolePermissions;
+				var permissions = isLeft? that.allPermissions : that.rightCurrentPagePermissions;//TODO
 				permissions.some(function(item,index){
 					if(item.id === permission.id){
 						bgGray = item.bgGray;
@@ -268,7 +319,7 @@ $(function(){
 						var beginIndex = index <= lastClick? index : lastClick;
 						var endIndex = lastClick + index - beginIndex;
 						for(;beginIndex <= endIndex;beginIndex++){
-							that.selectOneRow(that.rolePermissions[beginIndex],isLeft);
+							that.selectOneRow(that.rightCurrentPagePermissions[beginIndex],isLeft);//TODO
 						}
 					}
 				}
@@ -304,6 +355,7 @@ $(function(){
 				}
 				this.rolePermissions = newPermissions;
 				console.log(this.rolePermissions);
+				this.reCalculateRightPageInfo();//需要重新计算
 			},
 			
 			removeFromRight : function(){
@@ -314,6 +366,7 @@ $(function(){
 				}
 				this.rolePermissions = newPermissions;
 				this.rightSelectedIds = new Set([]);
+				this.reCalculateRightPageInfo();//需要重新计算
 			},
 			
 			rolePermissionsNotChanged : function(){
@@ -390,6 +443,49 @@ $(function(){
 				this.allPermissions = this.getAllPermissionsByPageInfo();
 				this.initLeftLastClick();
 				this.leftSelectedIds = new Set([]);
+			},
+			
+			
+			
+			
+			rightFirstPage : function(){
+				if(this.rightPageInfo.currentPage == 1){
+					alert('已经是第一页了');
+					return;
+				}
+				this.rightPageInfo.currentPage = 1;
+				this.setRightPermissionsLastClickAndSelectedIds();
+			},
+			rightNextPage : function(){
+				if(this.rightPageInfo.currentPage == this.rightPageInfo.totalPages){
+					alert('已经是最后一页了');
+					return;
+				}
+				this.rightPageInfo.currentPage =this.rightPageInfo.currentPage + 1;
+				this.setRightPermissionsLastClickAndSelectedIds();
+			},
+			rightPrePage : function(){
+				if(this.rightPageInfo.currentPage == 1){
+					alert('已经是第一页了');
+					return;
+				}
+				this.rightPageInfo.currentPage =this.rightPageInfo.currentPage - 1;
+				this.setRightPermissionsLastClickAndSelectedIds();
+			},
+			rightLastPage : function(){
+				if(this.rightPageInfo.currentPage == this.rightPageInfo.totalPages){
+					alert('已经是最后一页了');
+					return;
+				}
+				this.rightPageInfo.currentPage =this.rightPageInfo.totalPages;
+				this.setRightPermissionsLastClickAndSelectedIds();
+			},
+			
+			setRightPermissionsLastClickAndSelectedIds : function(){
+				// this.allPermissions = this.getAllPermissionsByPageInfo();
+				this.getRightCurrentPagePermissions();
+				this.initRightLastClick();
+				this.rightSelectedIds = new Set([]);
 			}
 			
 			
