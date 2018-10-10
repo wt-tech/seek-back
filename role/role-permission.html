@@ -63,6 +63,11 @@
 					</td>
 				</tr>
 			</table>
+			<button @click="leftFirstPage">首&nbsp;&nbsp;页</button>
+			<button @click="leftPrePage">上一页</button>
+			<div>{{leftPageInfo.currentPage}}/{{leftPageInfo.totalPages}}页</div>
+			<button @click="leftNextPage">下一页</button>
+			<button @click="leftLastPage">尾&nbsp;&nbsp;页</button>
 		</div>
 		<div>
 			<ul>

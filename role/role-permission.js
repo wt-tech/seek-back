@@ -17,7 +17,13 @@ $(function(){
 			rightSelectedIds : [],//右侧选中的权限
 			
 			leftLastClick : {},
-			rightLastClick : {}
+			rightLastClick : {},
+			leftPageInfo : {
+				currentPage : 1,
+				totalPages : 1,
+				totalCounts : 1,
+				pageSize : 10
+			}
 		},
 		computed : {
 			//最终提交时,发送给服务器端的所有的permissionId
@@ -73,17 +79,28 @@ $(function(){
 				}
 			},
 			
+			getAllPermissionsByPageInfo : function(){
+				var that = this;
+				var pageInfo = that.leftPageInfo;
+				return that.rawAllPermissions.filter(function(permission,index){
+					return index >= (pageInfo.currentPage-1) * pageInfo.pageSize && index < (pageInfo.currentPage) * pageInfo.pageSize
+				}).map(function(permission,index){
+					var computePermission = {};
+					$.extend(computePermission,permission);
+					computePermission.bgGray = false;
+					return computePermission;
+				});
+			},
+			
 			getAllPermission : function(){
 				var that = this;
 				simpleAxios.get('back/permissions').then(function(res){
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
+						console.log('abc');
 						that.rawAllPermissions = res.data.permissions;
-						that.allPermissions = res.data.permissions.map(function(permission){
-							var computePermission = {};
-							$.extend(computePermission,permission);
-							computePermission.bgGray = false;
-							return computePermission;
-						});
+						console.log(res.data.permissions.length/that.leftPageInfo.pageSize);
+						that.leftPageInfo.totalPages = Math.ceil(res.data.permissions.length/that.leftPageInfo.pageSize);
+						that.setLeftPermissionsLastClickAndSelectedIds();
 					}else
 						backEndExceptionHanlder(res);
 				}).catch(function(res){
@@ -260,7 +277,7 @@ $(function(){
 			},
 			addAllToRight : function(){
 				var that = this;
-				var allIds = that.rawAllPermissions.map(function(permission){
+				var allIds = that.allPermissions.map(function(permission){
 					return permission.id;
 				});
 				that.insertIntoRight(allIds);
@@ -330,7 +347,48 @@ $(function(){
 				}).catch(function(err){
 					unknownError(err);
 				});
+			},
+			
+			
+			leftFirstPage : function(){
+				if(this.leftPageInfo.currentPage == 1){
+					alert('已经是第一页了');
+					return;
+				}
+				this.leftPageInfo.currentPage = 1;
+				this.setLeftPermissionsLastClickAndSelectedIds();
+			},
+			leftNextPage : function(){
+				if(this.leftPageInfo.currentPage == this.leftPageInfo.totalPages){
+					alert('已经是最后一页了');
+					return;
+				}
+				this.leftPageInfo.currentPage =this.leftPageInfo.currentPage + 1;
+				this.setLeftPermissionsLastClickAndSelectedIds();
+			},
+			leftPrePage : function(){
+				if(this.leftPageInfo.currentPage == 1){
+					alert('已经是第一页了');
+					return;
+				}
+				this.leftPageInfo.currentPage =this.leftPageInfo.currentPage - 1;
+				this.setLeftPermissionsLastClickAndSelectedIds();
+			},
+			leftLastPage : function(){
+				if(this.leftPageInfo.currentPage == this.leftPageInfo.totalPages){
+					alert('已经是最后一页了');
+					return;
+				}
+				this.leftPageInfo.currentPage =this.leftPageInfo.totalPages;
+				this.setLeftPermissionsLastClickAndSelectedIds();
+			},
+			
+			setLeftPermissionsLastClickAndSelectedIds : function(){
+				this.allPermissions = this.getAllPermissionsByPageInfo();
+				this.initLeftLastClick();
+				this.leftSelectedIds = new Set([]);
 			}
+			
 			
 			
 		}
