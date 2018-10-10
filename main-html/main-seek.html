@@ -124,6 +124,7 @@
 			}
 			
 			td .fenye {
+				
 				padding: 10px 0 0 0;
 				text-align: right;
 			}
@@ -225,7 +226,8 @@
 				</td>
 			</tr>
 			<tr>
-				 <td align="right" valign="bottom" class="fenye">{{totalCount}} 条数据 {{pageIndex}}/{{totalPage}} 页&nbsp;&nbsp;
+				 <td align="right" valign="bottom" class="fenye">
+				 	<span style="font-size:12px;">{{totalCount}} 条数据 {{pageIndex}}/{{totalPage}} 页&nbsp;&nbsp;</span>
 					<a href="#" @click.prevent="turnToFirstPage" >首页</a>&nbsp;&nbsp;
 					<a href="#" @click.prevent="turnToPrePage" >上一页</a>&nbsp;&nbsp;
 					<a href="#" @click.prevent="turnToNextPage" >下一页</a>&nbsp;&nbsp;

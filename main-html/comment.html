@@ -85,8 +85,8 @@
 		#main-tab th {
 			font-size: 12px;
 			background: url(../images/main/list_bg.jpg) repeat-x;
-			height: 32px;
-			line-height: 32px;
+			/*height: 32px;
+			line-height: 32px;*/
 		}
 
 		#main-tab td {
@@ -251,6 +251,9 @@
 		.fenye{
 			float: right;
 		}
+		input{
+			vertical-align: middle;
+		}
 	</style>
 </head>
 
@@ -264,9 +267,14 @@
 				<th align="center" valign="middle" class="borderright">昵称</th>
 				<th align="center" valign="middle" class="borderright">时间</th>
 				<th align="center" valign="middle" class="borderright">内容</th>
-				<th align="center" valign="middle"><input type="checkbox" name="check" :checked="commentList.length === mybox.length+mybox2.length" @click="checkedAll"/>全选</th>
+				<th align="center" valign="middle">
+					<label>
+						<input type="checkbox" name="check" :checked="commentList.length === mybox.length+mybox2.length" @click="checkedAll" />全选
+					</label>
+					
+				</th>
 			</tr>
-			
+			<tr v-if="totalCount == 0" style="color:red" ><td colspan="5" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;暂无评论</td></tr>
 			<tr v-for="(comment,index) of sortcommentList" >
 				<td is="vtd" v-for="(field,property) of comment" v-if="property!='id' && property!='replyId'"   :content="field" align="center" valign="middle" class="borderright borderbottom borderleft"></td>
 				<!--<td align="center" valign="middle" class="borderright borderbottom borderleft">{{item.content}}</td>-->
