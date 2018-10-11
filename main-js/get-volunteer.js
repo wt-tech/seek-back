@@ -96,7 +96,8 @@ $(function(){
 			backPage : function(){
 				var url = "main-volunteer.html";
 				window.open(url,'mainFrame');
-			}
+			},
+			
 		},
 	
 	})
