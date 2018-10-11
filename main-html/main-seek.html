@@ -159,23 +159,23 @@
 								<td width="80px" align="right" valign="middle" class=" ">出生日期：</td>
 								<td width="80px">
 									<select v-model="seekSort.birthDate" @change="sortBirthDate">
-										<option value="true">更早</option>
-										<option value="false">最近</option>
+										<option value="1">更早</option>
+										<option value="0">最近</option>
 									</select>
 								</td>
 								<td align="right" valign="middle" class=" ">失踪日期：</td>
 								<td width="80px">
 									<select v-model="seekSort.missDate" @change="sortMissDate">
-										<option value="true">更早</option>
-										<option value="false">最近</option>
+										<option value="1">更早</option>
+										<option value="0">最近</option>
 									</select>
 								</td>
 
 								<td width="80px" align="right" valign="middle" class=" ">发布时间：</td>
 								<td width="80px">
 									<select v-model="seekSort.pubDate" @change="sortPubDate">
-										<option value="true">更早</option>
-										<option value="false">最近</option>
+										<option value="1">更早</option>
+										<option value="0">最近</option>
 									</select>
 								</td>
 							</tr>
