@@ -90,7 +90,6 @@ $(function() {
 				that.currentPageNo = that.totalPage;
 				that.getAdminList(that.totalPage);
 			},
-				
 		},
 
 	})
