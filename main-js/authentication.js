@@ -47,12 +47,12 @@ $(function(){
 //				params.append('currentPageNo',currentPageNo)
 				simpleAxios.get('authentication/back/listauthentication?currentPageNo='+currentPageNo).then(function(res){
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
-						var resData = res.data
-						that.rawAuthenticationList = resData.authentications
-						that.totalPage = Math.ceil(resData.totalCount/resData.pageSize)
-						that.totalCount = resData.totalCount
-						console.log(res)
-						console.log(that.rawAuthenticationList)
+						var resData = res.data;
+						that.rawAuthenticationList = resData.authentications;
+						that.totalPage = Math.ceil(resData.totalCount/resData.pageSize);
+						that.totalCount = resData.totalCount;
+						//console.log(res)
+						//console.log(that.rawAuthenticationList)
 					}else 
 						backEndExceptionHanlder(res);
 				}).catch(function(err){
@@ -99,10 +99,10 @@ $(function(){
 				
 			},
 			
-			firstPage : function(){
-				var that = this
-				var currentPageNo  = 1 
-				that.initRawAuthResultList(currentPageNo)
+			firstPage: function() {
+				var that = this;
+				that.currentPageNo = 1;
+				that.initRawAuthResultList(that.currentPageNo)
 			},
 			prevPage : function(){
 				var that = this

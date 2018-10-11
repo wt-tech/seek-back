@@ -71,10 +71,7 @@ $(function(){
 //				console.log(params)
 				simpleAxios.post("seek/getseek",params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status==SUCCESS){
-						//TODO 
-						
-						console.log(res)
-						var commentLists = []
+						var commentLists = [];
 						for (var tmp of res.data.topComents){
 							commentLists.push(tmp)
 							if(tmp.talks){
@@ -84,12 +81,9 @@ $(function(){
 							}
 							
 						}
-						console.log(commentLists)
 						that.commentList = commentLists;
-						that.totalCount = res.data.totalCount
-						that.totalPage = Math.ceil(res.data.totalCount/5)
-						console.log(that.totalPage)
-						
+						that.totalPage = Math.ceil(res.data.totalCount / res.data.pageSize);
+						that.totalCount = res.data.totalCount;
 					}else
 						backEndExceptionHanlder(res);
 				}).catch(function(err){
@@ -173,38 +167,41 @@ $(function(){
 			
 			//分页
 			turnToFirstPage:function(){
-				var that = this
-				that.initComment(1)
-//				that.ismybox = [];
-				that.emptylength()
+				var that = this;
+				that.initComment(1);
+				that.emptylength();
 
 			},
 			turnToPrePage:function(){
-				var that = this
-				if(that.currentPageNo>1){
-					that.currentPageNo -- 
-					var pages = that.currentPageNo
-					that.initComment(pages)
-					that.emptylength()
-//					that.ismybox = []	;
+				var that = this;
+				if(that.currentPageNo > 1) {
+					var currentPageNo = that.currentPageNo;
+					currentPageNo--;
+					that.currentPageNo = currentPageNo;
+					that.initComment(currentPageNo);
+					that.emptylength();
+				} else {
+					alert('已经是第一页');
 				}
-				
 			},
 			turnToNextPage:function(){
-				var that = this
-				if(that.currentPageNo<that.totalPage){
-					that.currentPageNo ++ 
-					var pages = that.currentPageNo
-					that.initComment(pages)
-					that.emptylength()
-//					that.ismybox = [];
+				var that = this;
+				var currentPageNo = that.currentPageNo;
+				if(that.totalPage == currentPageNo) {
+					alert('已经是最后一页');
+				} else {
+					currentPageNo++;
+					that.currentPageNo = currentPageNo;
+					that.initComment(currentPageNo);
+					that.emptylength();
 				}
 			},
+			
 			turnToLastPage:function(){
-				var that = this
-				var pages = that.totalPage
-				that.emptylength()
-//				that.ismybox = [];
+				var that = this;
+				var pages = that.totalPage;
+				that.initComment(pages);
+				that.emptylength();
 			},
 			//点击分页时清空数据
 			emptylength:function(){

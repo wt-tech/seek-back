@@ -21,7 +21,7 @@
 				simpleAxios.get('back/user/menus').then(function(res) {
 					if (res.status == STATUS_OK && res.data.status == SUCCESS) {
 						let menus = [];
-						menus = res.data.menus;
+						menus = res.data.userMenus;
 						console.log(menus);
 						for (var menu of menus) {
 							if ($('#' + menu.menuName).attr('style'))
@@ -30,7 +30,9 @@
 					} else
 						backEndExceptionHanlder(res, null, "./login.html");
 				}).catch(function(err) {
-					unknownError(err);
+					alert("请重新登录!");
+					var url = "./login.html";
+				    window.open(url);
 				})
 			}
 		</script>
