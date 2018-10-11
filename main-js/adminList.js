@@ -47,11 +47,10 @@ $(function() {
 				})
 			},
 			turnToUpdatePage: function(e) {
-				console.log(e)
-				var id = e.id
-				var userName = e.userName
-				var userCode = e.userCode
-				var url = './updataAdmin.html?id=' + id + '&userName=' + userName + '&userCode=' + userCode
+				var id = e.id;
+				var userName = e.userName;
+				var userCode = e.userCode;
+				var url = '../adminList/updataAdmin.html?id=' + id + '&userName=' + userName + '&userCode=' + userCode
 				window.open(url)
 			},
 
@@ -90,9 +89,9 @@ $(function() {
 				that.currentPageNo = that.totalPage;
 				that.getAdminList(that.totalPage);
 			},
-				var url = './user-role.html?id='+userCode;
-				window.location.href = url;
-			}
+//				var url = './user-role.html?id='+userCode;
+//				window.location.href = url;
+			//}
 		},
 
 	})

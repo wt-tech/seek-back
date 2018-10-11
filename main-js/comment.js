@@ -69,7 +69,7 @@ $(function(){
 //					currentPageNo:1
 //				};
 //				console.log(params)
-				simpleAxios.post("seek/getseek",params).then(function(res){
+				simpleAxios.post("seek/back/getseek",params).then(function(res){
 					if(res.status == STATUS_OK && res.data.status==SUCCESS){
 						var commentLists = [];
 						for (var tmp of res.data.topComents){
