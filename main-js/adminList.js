@@ -51,8 +51,9 @@ $(function() {
 				var id = e.id
 				var userName = e.userName
 				var userCode = e.userCode
-				var url = '../adminList/updataAdmin.html?id=' + id + '&userName=' + userName + '&userCode=' + userCode
-				window.open(url)
+
+				var url = './user-role.html?id='+userCode;
+				window.location.href = url;
 			},
 
 			firstPage: function() {
@@ -90,7 +91,10 @@ $(function() {
 				that.currentPageNo = that.totalPage;
 				that.getAdminList(that.totalPage);
 			},
+<<<<<<< HEAD
 				
+=======
+>>>>>>> c89d79ba2d05c38d35f3b7ded1d203b0617b083a
 		},
 
 	})
