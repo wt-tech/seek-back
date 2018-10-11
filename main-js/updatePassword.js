@@ -67,7 +67,6 @@ $(function(){
 				
 			},
 			cofirmPass:function(e){
-				console.log(this.confirmPassword)
 				if(this.confirmPassword !== this.newPassword){
 					this.tips = '两次密码不一致'
 					this.pwd = true 
