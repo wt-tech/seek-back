@@ -64,6 +64,11 @@
 					</td>
 				</tr>
 			</table>
+			<button @click="leftFirstPage">首&nbsp;&nbsp;页</button>
+			<button @click="leftPrePage">上一页</button>
+			<div>{{leftPageInfo.currentPage}}/{{leftPageInfo.totalPages}}页</div>
+			<button @click="leftNextPage">下一页</button>
+			<button @click="leftLastPage">尾&nbsp;&nbsp;页</button>
 		</div>
 		<div>
 			<ul>
@@ -84,13 +89,22 @@
 		<!-- <p>该角色拥有菜单项</p> -->
 		<div class='roles'>
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr v-for="(permission,index) of rolePermissions" :class="permission.bgGray?'bg-gray':'no-class'">
+				<tr v-for="(permission,index) of rightCurrentPagePermissions" :class="permission.bgGray?'bg-gray':'no-class'">
 					<td>
 						<a 	@click.prevent.exact="commonClick(permission.id,index,false)"
 							@click.prevent.shift.exact="shiftClick(permission.id,index,false)">{{permission.description}}</a>
 					</td>
 				</tr>
 			</table>
+			<button @click="rightFirstPage">首&nbsp;&nbsp;页</button>
+			<button @click="rightPrePage">上一页</button>
+			<div>{{rightPageInfo.currentPage}}/{{rightPageInfo.totalPages}}页</div>
+			<button @click="rightNextPage">下一页</button>
+			<button @click="rightLastPage">尾&nbsp;&nbsp;页</button>
+		</div>
+		
+		<div style="display: none;">
+			<div v-for="item of rolePermissions"></div>
 		</div>
 	</div>
 </body>

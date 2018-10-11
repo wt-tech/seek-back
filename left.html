@@ -30,7 +30,9 @@
 					} else
 						backEndExceptionHanlder(res, null, "./login.html");
 				}).catch(function(err) {
-					unknownError(err);
+					alert("请重新登录!");
+					var url = "./login.html";
+				    window.open(url);
 				})
 			}
 		</script>

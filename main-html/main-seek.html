@@ -1,6 +1,5 @@
 <html>
 
-
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>主要内容区main</title>
@@ -133,108 +132,108 @@
 				background: #f9f9f9
 			}
 			
-			.img{
+			.img {
 				width: 50px;
 				height: auto;
 			}
-			
 		</style>
 	</head>
 
 	<body>
-		<table width="99%" border="0" cellspacing="0" cellpadding="0" id="seek">
-			<tr>
-				<td align="left" valign="top">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
-						<tr>
-							<td  align="left" valign="middle">
-								<form method="post" action="">
-									<span>管理员：</span>
-									<input type="text" name="" v-model="inputs" value="" class="text-word">
-									<input name="chaxun" @click="submit" type="button" value="查询" class="text-but">
-								</form>
-								
-							</td>
-							
-							<td width="80px" align="center">排序</td>
-							<td width="80px" align="right" valign="middle" class=" ">出生日期：</td>
-							<td width="80px"> 
-								<select v-model="seekSort.birthDate" @change="sortBirthDate"> 
-									<option value="true">更早</option>
-									<option value="false">最近</option>
-								</select>
-							</td>
-							<td align="right" valign="middle" class=" ">失踪日期：</td>
-							<td width="80px">
-								<select v-model="seekSort.missDate" @change="sortMissDate">
-									<option value="true">更早</option>
-									<option value="false">最近</option>
-								</select>
-							</td>
-							
-							<td width="80px" align="right" valign="middle" class=" ">发布时间：</td>
-							<td width="80px">
-								<select v-model="seekSort.pubDate" @change="sortPubDate"> 
-									<option value="true">更早</option>
-									<option value="false">最近</option>
-								</select>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td align="left" valign="top">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
-						<tr>
-							<th align="center" valign="middle" class="borderright">序号</th>
-							<th align="center" valign="middle" class="borderright">编号</th>
-							<th align="center" valign="middle" class="borderright">类别</th>
-							<th align="center" valign="middle" class="borderright">姓名</th>
-							<th align="center" valign="middle" class="borderright">性别</th>
-							<th align="center" valign="middle" class="borderright">出生日期</th>
-							<th align="center" valign="middle" class="borderright">失踪日期</th>
-							<th align="center" valign="middle" class="borderright">出生地址</th>
-							<th align="center" valign="middle" class="borderright">失踪地址</th>
-							<th align="center" valign="middle" class="borderright">详细地址</th>
-							<!--<th align="center" valign="middle" class="borderright">图片</th>-->
-							<th align="center" valign="middle" class="borderright">失踪类别</th>
-							<!--<th align="center" valign="middle" class="borderright">联系人姓名</th>-->
-							<!--<th align="center" valign="middle" class="borderright">联系人手机</th>-->
-							<th align="center" valign="middle" class="borderright">标题</th>
-							<th align="center" valign="middle" class="borderright ">发布时间</th>
-							<th align="center" valign="middle" class="borderright ">评论管理</th>
-							<th align="center" valign="middle">操作</th>
-						</tr>
-						
-						<tr v-for="(seek,index) of seekList">
-							<td is="vtd" v-for="(field,property) of seek" v-if="property!='id'" :content="field"></td>
-							<td align="center" valign="middle" class="borderbottom borderright">
-								<!--<a @click.prevent="turnToEditPage(seek)" class="add">编辑</a>
+		<div id="seek">
+			<table width="99%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td align="left" valign="top">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
+							<tr>
+								<td align="left" valign="middle">
+									<form method="post" action="">
+										<span>管理员：</span>
+										<input type="text" name="" v-model="inputs" value="" class="text-word">
+										<input name="chaxun" @click="submit" type="button" value="查询" class="text-but">
+									</form>
+
+								</td>
+
+								<td width="80px" align="center">排序</td>
+								<td width="80px" align="right" valign="middle" class=" ">出生日期：</td>
+								<td width="80px">
+									<select v-model="seekSort.birthDate" @change="sortBirthDate">
+										<option value="true">更早</option>
+										<option value="false">最近</option>
+									</select>
+								</td>
+								<td align="right" valign="middle" class=" ">失踪日期：</td>
+								<td width="80px">
+									<select v-model="seekSort.missDate" @change="sortMissDate">
+										<option value="true">更早</option>
+										<option value="false">最近</option>
+									</select>
+								</td>
+
+								<td width="80px" align="right" valign="middle" class=" ">发布时间：</td>
+								<td width="80px">
+									<select v-model="seekSort.pubDate" @change="sortPubDate">
+										<option value="true">更早</option>
+										<option value="false">最近</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+							<tr>
+								<th align="center" valign="middle" class="borderright">序号</th>
+								<th align="center" valign="middle" class="borderright">编号</th>
+								<th align="center" valign="middle" class="borderright">类别</th>
+								<th align="center" valign="middle" class="borderright">姓名</th>
+								<th align="center" valign="middle" class="borderright">性别</th>
+								<th align="center" valign="middle" class="borderright">出生日期</th>
+								<th align="center" valign="middle" class="borderright">失踪日期</th>
+								<th align="center" valign="middle" class="borderright">出生地址</th>
+								<th align="center" valign="middle" class="borderright">失踪地址</th>
+								<th align="center" valign="middle" class="borderright">详细地址</th>
+								<!--<th align="center" valign="middle" class="borderright">图片</th>-->
+								<th align="center" valign="middle" class="borderright">失踪类别</th>
+								<!--<th align="center" valign="middle" class="borderright">联系人姓名</th>-->
+								<!--<th align="center" valign="middle" class="borderright">联系人手机</th>-->
+								<th align="center" valign="middle" class="borderright">标题</th>
+								<th align="center" valign="middle" class="borderright ">发布时间</th>
+								<th align="center" valign="middle" class="borderright ">评论管理</th>
+								<th align="center" valign="middle">操作</th>
+							</tr>
+
+							<tr v-for="(seek,index) of seekList">
+								<td is="vtd" v-for="(field,property) of seek" v-if="property!='id'" :content="field"></td>
+								<td align="center" valign="middle" class="borderbottom borderright">
+									<!--<a @click.prevent="turnToEditPage(seek)" class="add">编辑</a>
 								<span class="gray">&nbsp;|&nbsp;</span>-->
-								<a @click.prevent="toComment(seek)" onFocus="this.blur()" class="add">查看</a>
-								
-							</td>
-							<td align="center" valign="middle" class="borderbottom">
-								<!--<a @click.prevent="turnToEditPage(seek)" class="add">编辑</a>
+									<a @click.prevent="toComment(seek)" onFocus="this.blur()" class="add">查看</a>
+
+								</td>
+								<td align="center" valign="middle" class="borderbottom">
+									<!--<a @click.prevent="turnToEditPage(seek)" class="add">编辑</a>
 								<span class="gray">&nbsp;|&nbsp;</span>-->
-								<a @click.prevent="turnToUpdatePage(seek)" onFocus="this.blur()" class="add">详情</a>&nbsp;&nbsp;|
-								<a @click.prevent="deleteSeekRequest(seek)" onFocus="this.blur()" class="add">删除</a>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				 <td align="right" valign="bottom" class="fenye">
-				 	<span style="font-size:12px;">{{totalCount}} 条数据 {{pageIndex}}/{{totalPage}} 页&nbsp;&nbsp;</span>
-					<a href="#" @click.prevent="turnToFirstPage" >首页</a>&nbsp;&nbsp;
-					<a href="#" @click.prevent="turnToPrePage" >上一页</a>&nbsp;&nbsp;
-					<a href="#" @click.prevent="turnToNextPage" >下一页</a>&nbsp;&nbsp;
-					<a href="#" @click.prevent="turnToLastPage" >尾页</a>
-				</td>
-			</tr>
-		</table>
+									<a @click.prevent="turnToUpdatePage(seek)" onFocus="this.blur()" class="add">详情</a>&nbsp;&nbsp;|
+									<a @click.prevent="deleteSeekRequest(seek)" onFocus="this.blur()" class="add">删除</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top" class="fenye">{{totalCount}} 条数据{{currentPageNo}}/{{totalPage}}页&nbsp;&nbsp;
+						<a href="#" @click.prevent="firstPage()" target="mainFrame" onFocus="this.blur()">首页</a>&nbsp;&nbsp;
+						<a href="#" @click.prevent="prevPage()" target="mainFrame" onFocus="this.blur()">上一页</a>&nbsp;&nbsp;
+						<a href="#" @click.prevent="nextPage()" target="mainFrame" onFocus="this.blur()">下一页</a>&nbsp;&nbsp;
+						<a href="#" @click.prevent="lastPage()" target="mainFrame" onFocus="this.blur()">尾页</a>
+					</td>
+				</tr>
+			</table>
+		</div>
 	</body>
 
 </html>
@@ -243,4 +242,3 @@
 <script src="../js/axios.min.js"></script>
 <script src="../js/seek.global.js"></script>
 <script src="../main-js/seek.js"></script>
-

@@ -100,10 +100,10 @@ $(function(){
 				
 			},
 			
-			firstPage : function(){
-				var that = this
-				var currentPageNo  = 1 
-				that.initRawVolunteerList(currentPageNo)
+			firstPage: function() {
+				var that = this;
+				that.currentPageNo = 1;
+				that.initRawVolunteerList(that.currentPageNo)
 			},
 			prevPage : function(){
 				var that = this
