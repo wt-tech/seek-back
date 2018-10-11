@@ -2,6 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>主要内容区main</title>
+<link href="../css/css.css" type="text/css" rel="stylesheet" />
 <link href="../css/alogin.css" type="text/css" rel="stylesheet" />
 <link href="../css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="images/main/favicon.ico" />
@@ -48,7 +49,7 @@
 			height: 24px;
 			line-height: 24px;
 			width: 55px;
-			background: url(images/main/list_input.jpg) no-repeat left top;
+			background: url(../images/main/list_input.jpg) no-repeat left top;
 			border: none;
 			cursor: pointer;
 			font-family: "Microsoft YaHei", "Tahoma", "Arial", '宋体';
@@ -59,7 +60,7 @@
 		}
 		
 		#search a.add {
-			background: url(images/main/add.jpg) no-repeat -3px 7px #548fc9;
+			background: url(../images/main/add.jpg) no-repeat -3px 7px #548fc9;
 			padding: 0 10px 0 26px;
 			height: 40px;
 			line-height: 40px;
@@ -82,7 +83,7 @@
 		
 		#main-tab th {
 			font-size: 12px;
-			background: url(images/main/list_bg.jpg) repeat-x;
+			background: url(../images/main/list_bg.jpg) repeat-x;
 			height: 32px;
 			line-height: 32px;
 		}
@@ -101,7 +102,9 @@
 			color: #565656;
 			text-decoration: underline;
 		}
-		
+		#main-tab tr:nth-child(even),#main-tab tr:nth-child(even) input{
+			background:#f7f7f7;
+		}
 		
 		td.fenye {
 			padding: 10px 0 0 0;
@@ -112,6 +115,18 @@
 			width: 50px;
 			height: auto;
 		}
+		.bordertop{ border-top:1px solid #ebebeb}
+		.borderright{ border-right:1px solid #ebebeb}
+		.borderbottom{ border-bottom:1px solid #ebebeb}
+		.borderleft{ border-left:1px solid #ebebeb}
+		input {
+			border: 1px solid #ccc;
+			height:25px;
+			line-height:25px;
+			padding-left:10px;
+			width:50%;
+		}
+		
 	</style>
 </head>
 <body>
@@ -137,19 +152,19 @@
     <td align="left" valign="top">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
 				<tr>
-					<th align="center" valign="middle" class="borderright">序号</th>
+					<th align="center" valign="middle" class="borderright borderbottom borderleft">序号</th>
 					<th align="center" valign="middle" class="borderright">路径</th>
 					<th align="center" valign="middle" class="borderright">说明</th>
-					<th align="center" valign="middle" class="borderright">提示</th>
+					<th width='150' align="center" valign="middle" class="borderright">提示</th>
 				</tr>
 				<tr v-for="(permission,index) of permissionList"> 
 					<td is="std" v-for="(field,property) of permission" v-if="property!='id' && property!='description' && property!='message'" :content="field"></td>
-					<td align="center" valign="middle" class="borderbottom">
+					<td align="center" valign="middle" class="borderbottom borderright">
 						<input id="Text1" type="text" v-model="permission.description" 
 							@focus="onFocus(permission.url,permission.index)"
 							@blur="descriptionChange(permission.index,permission.url,permission.description,permission.id)" />
 					</td>
-					<td align="center" valign="middle" class="borderbottom" style="color: red; font-size: 16px;">{{permission.message}}</td>
+					<td align="center" valign="middle" class="borderbottom" style="color: red; font-size: 14px;">{{permission.message}}</td>
 				</tr>
 			</table>
 		</td>

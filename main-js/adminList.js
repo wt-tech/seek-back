@@ -90,6 +90,9 @@ $(function() {
 				that.currentPageNo = that.totalPage;
 				that.getAdminList(that.totalPage);
 			},
+				var url = './user-role.html?id='+userCode;
+				window.location.href = url;
+			}
 		},
 
 	})

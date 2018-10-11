@@ -125,56 +125,6 @@ $(function() {
 
 			},
 
-			/*//初始化总条目个数
-            initTotalSeekCount:function(){
-                var vueInstance = this;
-                simpleAxios.get('/seek/back/countseek').then(function(res) {
-                     //获取数据成功
-                    if(res.status==200 && res.data.status == 'success'){
-                        vueInstance.totalCount = res.data.totalCount;
-                      //console.log(vueInstance.totalCount);
-                        vueInstance.totalPage = Math.ceil(vueInstance.totalCount/_pageSize);
-                    }else{
-                        console.log('err');
-                        //错误处理
-                    }
-                }).catch(function(err){
-                    console.log(err);
-                });
-            },
-            
-            turnToFirstPage:function(){
-                var vueInstance = this;
-                if(vueInstance.pageIndex != 1){
-                    vueInstance.pageIndex = 1;
-                    vueInstance.initRawSeekList();
-                }
-            },
-
-            turnToNextPage:function(){
-                var vueInstance = this;
-                if(vueInstance.pageIndex  < vueInstance.totalPage){
-                    vueInstance.pageIndex++;
-                    vueInstance.initRawSeekList();
-                }
-            },
-
-            turnToPrePage : function(){
-                var vueInstance = this;
-                if(vueInstance.pageIndex > 1){
-                    vueInstance.pageIndex--;
-                    vueInstance.initRawSeekList();
-                }
-            },
-
-            turnToLastPage : function(){
-                var vueInstance = this;
-                if(vueInstance.pageIndex  < vueInstance.totalPage){
-                    vueInstance.pageIndex = vueInstance.totalPage,
-                    vueInstance.initRawSeekList();
-                }
-            },*/
-
 			deleteSeekRequest: function(seek) {
 				if(!window.confirm("确定要删除该寻亲记录吗?")) return;
 				var that = this;
@@ -209,16 +159,7 @@ $(function() {
 				var that = this;
 				var page = that.currentPageNo;
 				var missName = that.inputs;
-//				var params = that.prepareUpdateParams();
 				that.initRawSeekList(page,missName);
-//				jsonAxios.post('seek/back/listseek', params).then(function(res) {
-//					if(res.status == STATUS_OK && res.data.status == SUCCESS) {
-//						console.log(res.data);
-//					} else
-//						backEndExceptionHanlder(res);
-//				}).catch(function(err) {
-//					unknownError(res);
-//				});
 			},
 			toComment: function(seek) {
 				var id = seek.id
