@@ -20,9 +20,9 @@ $(function(){
                     if(res.status == STATUS_OK && res.data.status == SUCCESS){
                         window.location.href = 'index.html';
                     }else
-						backEndExceptionHanlder(res,'账号密码不匹配');
+						backEndExceptionHanlder(res);
                 }).catch(function(err){
-                    //unknownError(err);
+                    unknownError(err);
                 })
             },
         }

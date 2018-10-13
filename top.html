@@ -58,7 +58,7 @@
 					if(res.status == STATUS_OK && res.data.status == SUCCESS){
 						window.open('login.html');
 					}else
-						backEndExceptionHanlder(res,'退出失败');
+						backEndExceptionHanlder(res);
 			}).catch(function(err){
 					unknownError(err);
 			})

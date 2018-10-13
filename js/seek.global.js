@@ -46,12 +46,10 @@ var jsonAxios = axios.create({
 });
 
 
- function backEndExceptionHanlder(res,message=null,url="../login.html"){
+ function backEndExceptionHanlder(res){
 	if(res.status==STATUS_OK && res.data.status == FAIL){//后端的GloblalExceptionHandler抛出的错误信息
 		let tips = res.data.tips;
-		alert(tips?tips:message);
-		if(tips=="请先登录!")
-			window.open(url);
+		alert(tips);
 	}else
 		alert('未知错误');
 }
