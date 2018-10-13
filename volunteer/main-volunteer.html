@@ -66,6 +66,8 @@ a{
 				<tr v-for="(volunteer,index) of volunteerList" class="cont-list"> 
 						<td is="std" v-for="(field,property) of volunteer" v-if="property!='id'"  :content="field"></td>
 						<td align="center" valign="middle" class="borderbottom">
+							<a @click.prevent="turnToAllocatePage(volunteer.id)" class="add">分配区域</a>
+							<span class="gray">&nbsp;|&nbsp;</span>
 							<a @click.prevent="passvolunteer(volunteer)" class="add">通过</a>
 							<span class="gray">&nbsp;|&nbsp;</span>
 							<a @click.prevent="notpassvolunteer(volunteer)" onFocus="this.blur()" class="add">不通过</a>

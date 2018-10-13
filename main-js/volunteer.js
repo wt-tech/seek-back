@@ -60,6 +60,13 @@ $(function(){
 					unknownError(err);
 				})
 			},
+			
+			turnToAllocatePage : function (volunteerId){
+				var url = "./volunteer-area.html?id="+volunteerId;
+				window.location.href = url;
+			},
+			
+			
 			passvolunteer : function(volunteer){
 				console.log(volunteer.id,volunteer)
 				var that = this
