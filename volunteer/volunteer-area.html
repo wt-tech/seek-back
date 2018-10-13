@@ -21,7 +21,7 @@
 			font-size:15px;
 		}
 		#areaAllocate{
-			width:50%;	
+			width:70%;	
 			margin:0 auto;
 			margin-top:100px;
 		}
@@ -35,7 +35,7 @@
 		.left{
 			position:relative;
 			border:1px solid #214D90;
-			width:230px;
+			width:30%;
 			padding-top:10px;
 			padding-left:10px;
 			min-height: 260px;
@@ -69,7 +69,7 @@
 			border:solid 1px #777;
 			box-shadow:inset 2px 2px 1px #ccc;
 			background:#fff;
-			width:230px;
+			width:30%;
 			min-height: 260px;
 		}
 		.title{
@@ -77,6 +77,14 @@
 			position:absolute;
 			top:-30px;
 			left:15px;
+		}
+		select{
+			width:25%;
+			margin:0 5px;
+			float:left;
+		}
+		.last{
+			
 		}
 	</style>
 </head>
@@ -96,7 +104,7 @@
 					<option is="v-option" v-for="city of cityList" :item="city"></option>
 				</select>
 				<!-- county允许多选 -->
-				<select multiple  @change="countyChange($event.target.selectedOptions,false)">
+				<select multiple class="last"  @change="countyChange($event.target.selectedOptions,false)">
 					<option is="v-option" v-for="county of countyList" :item="county"></option>
 				</select>
 			</div>

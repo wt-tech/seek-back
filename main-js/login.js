@@ -28,6 +28,7 @@ $(function(){
 
                 }).catch(function(err){
                     unknownError(err);
+                    vueInstance.loding = false;
                 })
             },
         }
