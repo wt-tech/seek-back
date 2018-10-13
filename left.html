@@ -20,20 +20,19 @@
 
 				simpleAxios.get('back/user/menus').then(function(res) {
 					if (res.status == STATUS_OK && res.data.status == SUCCESS) {
-						let menus = [];
+						var menus = [];
 						menus = res.data.userMenus;
-						console.log(menus);
 						for (var menu of menus) {
 							if ($('#' + menu.menuName).attr('style'))
 								$('#' + menu.menuName).removeAttr('style');
 						}
 					} else
-						backEndExceptionHanlder(res, null, "./login.html");
+							backEndExceptionHanlder(res);
 				}).catch(function(err) {
 					alert("请重新登录!");
 					var url = "./login.html";
-				    window.open(url);
-				})
+				  window.open(url);
+				});
 			}
 		</script>
 		<style type=text/css> html{ SCROLLBAR-FACE-COLOR: #538ec6; SCROLLBAR-HIGHLIGHT-COLOR: #dce5f0;

@@ -10,8 +10,8 @@ const TEN = 10;
 
 
 
-//const BASEURL = 'http://192.168.0.177:8888/seek/'
-const BASEURL = 'http://192.168.0.109:8080/seek/'
+const BASEURL = 'http://192.168.0.177:8888/seek/'
+// const BASEURL = 'http://192.168.0.109:8080/seek/'
 //const BASEURL = 'https://www.qghls.com/seek/'
 
 
@@ -46,12 +46,10 @@ var jsonAxios = axios.create({
 });
 
 
- function backEndExceptionHanlder(res,message=null,url="../login.html"){
+ function backEndExceptionHanlder(res){
 	if(res.status==STATUS_OK && res.data.status == FAIL){//后端的GloblalExceptionHandler抛出的错误信息
 		let tips = res.data.tips;
-		alert(tips?tips:message);
-		if(tips=="请先登录!")
-			window.open(url);
+		alert(tips);
 	}else
 		alert('未知错误');
 }

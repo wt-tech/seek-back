@@ -25,8 +25,9 @@ $(function(){
                         vueInstance.loding = false;
 						backEndExceptionHanlder(res,'账号密码不匹配');
                     }
+
                 }).catch(function(err){
-                    //unknownError(err);
+                    unknownError(err);
                 })
             },
         }
