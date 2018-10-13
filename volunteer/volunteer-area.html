@@ -10,14 +10,21 @@
 			background: #f2f0f5;
 			padding: 15px 0px 10px 5px;
 		}
-
+		ul,ol,li{
+			list-style: none;
+			padding:0;
+		}
 		a{
 			text-decoration: none;
 			color : black;
 			padding-left: 15px;
 			font-size:15px;
 		}
-		
+		#areaAllocate{
+			width:50%;	
+			margin:0 auto;
+			margin-top:100px;
+		}
 		.selectedArea table tr td{
 			height:30px;
 		}
@@ -25,7 +32,52 @@
 		.bgGray{
 			background-color: #B3E1FA;
 		}
+		.left{
+			position:relative;
+			border:1px solid #214D90;
+			width:230px;
+			padding-top:10px;
+			padding-left:10px;
+			min-height: 260px;
+			border:solid 1px #777;
+			box-shadow:inset 2px 2px 1px #ccc;
+			background:#fff;
+			
+		}
+		.left,.btn,.allocatedArea{
+			float: left;
+		}
+		.btn{
+			margin:0 50px;
+		}
+		li button{
+			width:170px;
+			padding: 5px 20px;
+			color:#fff;
+			background-color:#4BB6DC;
+			border: solid 1px #4BB6DC;
+			background-image: linear-gradient(bottom, rgb(171,27,27) 0%, rgb(212,51,51) 100%);
+			border-radius: 5px;
+			margin:5px 5px;
+		}
 		
+		.toBeAllocatedArea{
+			margin-top:15px;
+		}
+		.allocatedArea{	
+			position: relative;
+			border:solid 1px #777;
+			box-shadow:inset 2px 2px 1px #ccc;
+			background:#fff;
+			width:230px;
+			min-height: 260px;
+		}
+		.title{
+			color:#4BB6DC;
+			position:absolute;
+			top:-30px;
+			left:15px;
+		}
 	</style>
 </head>
 
@@ -34,42 +86,57 @@
 	<div id="areaAllocate">
 		
 		<!-- 三级联动区域 -->
-		<div class="provinceCityCountyArea">
-			<select class="province" @change="provinceChange($event.target.selectedIndex)">
-				<option is="v-option" v-for="province of provinceList" :item="province"></option>
-			</select>
-			<select class="city" @change="cityChange($event.target.selectedIndex)">
-				<option is="v-option" v-for="city of cityList" :item="city"></option>
-			</select>
-			<!-- county允许多选 -->
-			<select multiple  class="county" @change="countyChange($event.target.selectedOptions,false)">
-				<option is="v-option" v-for="county of countyList" :item="county"></option>
-			</select>
+		<div class="left">
+			<div class="title">选择区域</div>
+			<div class="provinceCityCountyArea">
+				<select class="province" @change="provinceChange($event.target.selectedIndex)">
+					<option is="v-option" v-for="province of provinceList" :item="province"></option>
+				</select>
+				<select class="city" @change="cityChange($event.target.selectedIndex)">
+					<option is="v-option" v-for="city of cityList" :item="city"></option>
+				</select>
+				<!-- county允许多选 -->
+				<select multiple  @change="countyChange($event.target.selectedOptions,false)">
+					<option is="v-option" v-for="county of countyList" :item="county"></option>
+				</select>
+			</div>
+			<!-- 选中区域 从省市县列表选中后到该暂存区-->
+			<div class="toBeAllocatedArea">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+					<tr v-for="(area,index) of toBeAllocatedAreaList" :class="area.selected?'bgGray':''">
+						<td>
+							<a 	@click.prevent.exact="leftCommonClick(index)"
+								@click.prevent.shift.exact="leftShiftClick(index)">{{area.valueOf()}}</a>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		
-		<!-- 选中区域 从省市县列表选中后到该暂存区-->
-		<div class="toBeAllocatedArea">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
-				<tr v-for="(area,index) of toBeAllocatedAreaList" :class="area.selected?'bgGray':''">
-					<td>
-						<a 	@click.prevent.exact="leftCommonClick(index)"
-							@click.prevent.shift.exact="leftShiftClick(index)">{{area.valueOf()}}</a>
-					</td>
-				</tr>
-			</table>
-		</div>
 		
 		<!-- 操作区域 -->
-		<div>
-			<button @click="removeFromToBeAllocatedArea()">移除左侧选中区域</button>
-			<button @click="addToAllocatedArea()">左侧添加至右侧区域</button>
-			<button @click="removeSelectedAllocatArea()">删除右侧已选中区域</button>
+		<div class="btn">
+			<ul>
+				<li>
+					<button class="fristbtn" @click="removeFromToBeAllocatedArea()">移除左侧选中区域</button>
+				</li>
+				<li>
+					<button @click="addToAllocatedArea()">左侧添加至右侧区域</button>
+				</li>
+				<li>
+					<button @click="removeSelectedAllocatArea()">删除右侧已选中区域</button>
+				</li>
+			</ul>
+			
+			
+			
 		</div>
 		
 		<!-- 已经分配的区域 -->
 		<div class="allocatedArea">
 			
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+			<div class="title">已分配区域</div>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab" style="padding-top:10px">
 				<tr v-for="(area,index) of allocatedAreaList" :class="area.selected?'bgGray':''">
 					<td>
 						<a 	@click.prevent.exact="rightCommonClick(index)"
