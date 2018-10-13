@@ -9,6 +9,10 @@
 			margin: 0 auto;
 			width:1100px;
 			margin-top:10%;
+			position: relative;
+		}
+		.rightroles{
+			position: relative;
 		}
 		.roles{
 			width:400px;
@@ -47,13 +51,20 @@
 		.roles table tr td{
 			height:30px;
 		}
+		.have{
+			position:absolute;
+			top:-45px;
+			left:10px;
+			color:#4BB6DC;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="role">
-		<!-- <p>所有菜单项</p> -->
 		<div class='roles'>
+			
+		 	<p class="have">所有菜单项</p> 
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
 				<tr v-for="(role,index) of allRoles" :class="role.bgGray?'bg-gray':'no-class'">
 					<td>
@@ -83,8 +94,8 @@
 			
 			
 		</div>
-		<!-- <p>该角色拥有菜单项</p> -->
-		<div class='roles'>
+		<div class='roles rightroles' >
+		 <p class='have'>该角色拥有菜单项</p> 
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr v-for="(role,index) of userRoles" :class="role.bgGray?'bg-gray':'no-class'">
 					<td>
