@@ -80,7 +80,7 @@
 		}
 		select{
 			width:25%;
-			margin:0 5px;
+			margin:3% 3.6%;
 			float:left;
 		}
 		.last{
@@ -144,7 +144,7 @@
 		<div class="allocatedArea">
 			
 			<div class="title">已分配区域</div>
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab" style="padding-top:10px">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab" style="margin-top:5%">
 				<tr v-for="(area,index) of allocatedAreaList" :class="area.selected?'bgGray':''">
 					<td>
 						<a 	@click.prevent.exact="rightCommonClick(index)"

@@ -67,7 +67,8 @@ $(function() {
 				jsonAxios.post('register', params).then(function(res) {
 					if(res.status == STATUS_OK && res.data.status == SUCCESS) {
 						alert('注册成功')
-						that.clear()
+						that.clear();
+						window.colse()
 					} else
 						backEndExceptionHanlder(res);
 				}).catch(function(err) {
