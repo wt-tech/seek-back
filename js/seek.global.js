@@ -11,7 +11,7 @@ const TEN = 10;
 
 
 //const BASEURL = 'http://192.168.0.177:8888/seek/'
-const BASEURL = 'http://192.168.0.109:8080/seek01/'
+const BASEURL = 'http://192.168.0.109:8080/seek/'
 //const BASEURL = 'https://www.qghls.com/seek/'
 
 
