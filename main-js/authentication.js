@@ -71,7 +71,10 @@ $(function(){
 				}else{
 					simpleAxios.post('authentication/back/updateAuthentication',params).then(function(res){
 						console.log(res)
-						that.initRawAuthResultList()
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							alert('认证审核完成，结果为通过')
+							that.initRawAuthResultList(that.currentPageNo)
+						}
 					}).catch(function(err){
 						console.log(err)
 					})
@@ -91,7 +94,10 @@ $(function(){
 				}else{
 					simpleAxios.post('authentication/back/updateAuthentication',params).then(function(res){
 						console.log(res)
-						that.initRawAuthResultList()
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							alert('认证审核完成，结果为不通过')
+							that.initRawAuthResultList(that.currentPageNo)
+						}
 					}).catch(function(err){
 						console.log(err)
 					})
