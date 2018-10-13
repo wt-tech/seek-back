@@ -10,6 +10,7 @@ $(function() {
 	var app = new Vue({
 		el: '#seek',
 		data: {
+			addsearch:'',
 			inputs: null,
 			seektype: '',
 			seekSort: {
@@ -65,10 +66,18 @@ $(function() {
 				}
 				this.seektype = id;
 				console.log(this.seektype)
+				
 			},
 			initRawSeekList: function(pages,missName) {
 				var that = this;
 				var vueInstance = this;
+				if(that.seektype){
+					that.addsearch = '添加寻亲'
+				}else{
+					that.addsearch = '添加寻人'
+				};
+				
+				
 				if(that.seektype == 'y') {
 					if(missName){
 						var params = {
@@ -365,6 +374,14 @@ $(function() {
 				that.currentPageNo = that.totalPage;
 				that.initRawSeekList(that.totalPage);
 			},
+			addSearch:function(){
+				var that = this
+				var seektype=that.seektype;
+				var url = './update-search.html?seektype='+seektype
+				window.open(url)
+//				window.location.href = './update-search.html?seektype='+seektype
+				console.log(seektype)
+			}
 
 		}
 	});

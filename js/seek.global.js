@@ -11,7 +11,7 @@ const TEN = 10;
 
 
 //const BASEURL = 'http://192.168.0.177:8888/seek/'
-const BASEURL = 'http://192.168.0.109:8080/seek01/'
+const BASEURL = 'http://192.168.0.109:8080/seek/'
 //const BASEURL = 'https://www.qghls.com/seek/'
 
 
@@ -117,4 +117,26 @@ Array.prototype.remove = function(elementId){
 	return result;
 }
 
+
+Date.prototype.format = function (format) {
+    var date = {
+         "M+": this.getMonth() + 1,
+         "d+": this.getDate(),
+         "h+": this.getHours(),
+         "m+": this.getMinutes(),
+         "s+": this.getSeconds(),
+         "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S+": this.getMilliseconds()
+     };
+     if (/(y+)/i.test(format)) {
+         format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+     }
+     for (var k in date) {
+         if (new RegExp("(" + k + ")").test(format)) {
+             format = format.replace(RegExp.$1, RegExp.$1.length == 1
+            ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+         }
+     }
+     return format;
+ }
 
