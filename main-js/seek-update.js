@@ -71,7 +71,9 @@ $(function(){
 					console.log(res)
 					if(res.status == STATUS_OK){
 						that.seek = res.data.seekcontent;
-						that.imgs = res.data.seekcontent.seekimgs.split(',')
+						if(res.data.seekcontent.seekimgs){							
+							that.imgs = res.data.seekcontent.seekimgs.split(',')
+						}
 						that.missprovince = res.data.listprovince
 						that.seek.missDate = that.seek.missDate.split(' ')[0]
 						that.seek.pubdate = that.seek.pubdate.split(' ')[0]
@@ -79,11 +81,10 @@ $(function(){
 						that.seek.id = that.seekId;
 						
 						$.extend(that.bannerBak,that.banner);
-						console.log(that.imgs)
 					}else
 						backEndExceptionHanlder(res);					
-				}).catch(function(res){
-					unknownError(res);
+				}).catch(function(err){
+					unknownError(err);
 				});
 			},
 			
