@@ -46,12 +46,10 @@ var jsonAxios = axios.create({
 });
 
 
- function backEndExceptionHanlder(res,message=null,url="../login.html"){
+ function backEndExceptionHanlder(res){
 	if(res.status==STATUS_OK && res.data.status == FAIL){//后端的GloblalExceptionHandler抛出的错误信息
 		let tips = res.data.tips;
-		alert(tips?tips:message);
-		if(tips=="请先登录!")
-			window.open(url);
+		alert(tips);
 	}else
 		alert('未知错误');
 }
@@ -117,4 +115,26 @@ Array.prototype.remove = function(elementId){
 	return result;
 }
 
+
+Date.prototype.format = function (format) {
+    var date = {
+         "M+": this.getMonth() + 1,
+         "d+": this.getDate(),
+         "h+": this.getHours(),
+         "m+": this.getMinutes(),
+         "s+": this.getSeconds(),
+         "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S+": this.getMilliseconds()
+     };
+     if (/(y+)/i.test(format)) {
+         format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+     }
+     for (var k in date) {
+         if (new RegExp("(" + k + ")").test(format)) {
+             format = format.replace(RegExp.$1, RegExp.$1.length == 1
+            ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+         }
+     }
+     return format;
+ }
 

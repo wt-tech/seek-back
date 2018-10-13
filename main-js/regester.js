@@ -71,9 +71,7 @@ $(function() {
 					} else
 						backEndExceptionHanlder(res);
 				}).catch(function(err) {
-					console.log('err')
-
-					unknownError(res);
+					unknownError(err);
 				})
 			},
 			clear: function() {

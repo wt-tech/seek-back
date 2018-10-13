@@ -51,6 +51,7 @@ $(function() {
 				var id = e.id
 				var userName = e.userName
 				var userCode = e.userCode
+
 				var url = './user-role.html?id='+userCode;
 				window.location.href = url;
 			},
@@ -90,6 +91,7 @@ $(function() {
 				that.currentPageNo = that.totalPage;
 				that.getAdminList(that.totalPage);
 			},
+
 		},
 
 	})

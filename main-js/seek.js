@@ -10,6 +10,7 @@ $(function() {
 	var app = new Vue({
 		el: '#seek',
 		data: {
+			addsearch:'',
 			inputs: null,
 			seektype: '',
 			seekSort: {
@@ -65,10 +66,18 @@ $(function() {
 				}
 				this.seektype = id;
 				console.log(this.seektype)
+				
 			},
 			initRawSeekList: function(pages,missName) {
 				var that = this;
 				var vueInstance = this;
+				if(that.seektype){
+					that.addsearch = '添加寻亲'
+				}else{
+					that.addsearch = '添加寻人'
+				};
+				
+				
 				if(that.seektype == 'y') {
 					if(missName){
 						var params = {
@@ -174,47 +183,159 @@ $(function() {
 				return params;
 			},
 
-			//排序
+			//排序 contactWechat
 			sortPubDate: function(e) {
-
+				var that = this
+				console.log(e.target.value)
+				var seektype = that.seektype
 				var sortVal = e.target.value
-				var seekList = this.seekList
-				if(sortVal == 'true') {
-					seekList.sort(function(a, b) {
-						return Number(a.pubdate.replace(/-/g, '')) - Number(b.pubdate.replace(/-/g, ''))
+				var seekList = that.seekList
+				if(seektype){
+					var params = {
+						currentPageNo: that.currentPageNo,
+						id: 1,
+						seekType: '寻亲',
+						contactWechat : sortVal
+					};
+					jsonAxios.post('seek/back/listseek', params).then(function(res) {
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							that.rawSeekList = res.data.seeks;
+							that.totalPage = Math.ceil(res.data.totalCount/res.data.pageSize);
+							that.totalCount = res.data.totalCount;
+						} else
+							backEndExceptionHanlder(res);
+					}).catch(function(res) {
+						unknownError(res);
 					})
-				} else {
-					seekList.sort(function(a, b) {
-						return Number(b.pubdate.replace(/-/g, '')) - Number(a.pubdate.replace(/-/g, ''))
+				}else{
+					var params = {
+						currentPageNo: that.currentPageNo,
+						id: 1,
+						seekType: '寻人',
+						contactWechat : sortVal
+					};
+					jsonAxios.post('seek/back/listseek', params).then(function(res) {
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							that.rawSeekList = res.data.seeks;
+							that.totalPage = Math.ceil(res.data.totalCount/res.data.pageSize);
+							that.totalCount = res.data.totalCount;
+						} else
+							backEndExceptionHanlder(res);
+					}).catch(function(res) {
+						unknownError(res);
 					})
 				}
+				
 
 			},
+			//失踪日期 contactTel
 			sortMissDate: function(e) {
+				var that = this
+				console.log(e.target.value)
+				var seektype = that.seektype
 				var sortVal = e.target.value
-				var seekList = this.seekList
-				if(sortVal == 'true') {
-					seekList.sort(function(a, b) {
-						return Number(a.missDate.replace(/-/g, '')) - Number(b.missDate.replace(/-/g, ''))
-					})
-				} else {
-					seekList.sort(function(a, b) {
-						return Number(b.missDate.replace(/-/g, '')) - Number(a.missDate.replace(/-/g, ''))
-					})
+				var seekList = that.seekList
+				if(seektype){
+					var params = {
+						currentPageNo: that.currentPageNo,
+						id: 1,
+						seekType: '寻亲',
+						contactTel : sortVal
+					};
+					jsonAxios.post('seek/back/listseek', params).then(function(res) {
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							that.rawSeekList = res.data.seeks;
+							that.totalPage = Math.ceil(res.data.totalCount/res.data.pageSize);
+							that.totalCount = res.data.totalCount;
+						} else
+							backEndExceptionHanlder(res);
+					}).catch(function(res) {
+						unknownError(res);
+					});
+				}else{
+					var params = {
+						currentPageNo: that.currentPageNo,
+						id: 1,
+						seekType: '寻人',
+						contactTel : sortVal
+					};
+					jsonAxios.post('seek/back/listseek', params).then(function(res) {
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							that.rawSeekList = res.data.seeks;
+							that.totalPage = Math.ceil(res.data.totalCount/res.data.pageSize);
+							that.totalCount = res.data.totalCount;
+						} else
+							backEndExceptionHanlder(res);
+					}).catch(function(res) {
+						unknownError(res);
+					});
 				}
+				
+				
+				
+				
+//				if(sortVal == 'true') {
+//					seekList.sort(function(a, b) {
+//						return Number(a.missDate.replace(/-/g, '')) - Number(b.missDate.replace(/-/g, ''))
+//					})
+//				} else {
+//					seekList.sort(function(a, b) {
+//						return Number(b.missDate.replace(/-/g, '')) - Number(a.missDate.replace(/-/g, ''))
+//					})
+//				}
 			},
+			//contactQQ 对应出生日期
 			sortBirthDate: function(e) {
+				var that = this
+				console.log(e.target.value)
+				var seektype = that.seektype
 				var sortVal = e.target.value
-				var seekList = this.seekList
-				if(sortVal == 'true') {
-					seekList.sort(function(a, b) {
-						return Number(a.birthdate.replace(/-/g, '')) - Number(b.birthdate.replace(/-/g, ''))
-					})
-				} else {
-					seekList.sort(function(a, b) {
-						return Number(b.birthdate.replace(/-/g, '')) - Number(a.birthdate.replace(/-/g, ''))
-					})
+				var seekList = that.seekList
+				if(seektype){
+					var params = {
+						currentPageNo: that.currentPageNo,
+						id: 1,
+						seekType: '寻亲',
+						contactQQ : sortVal
+					};
+					jsonAxios.post('seek/back/listseek', params).then(function(res) {
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							that.rawSeekList = res.data.seeks;
+							that.totalPage = Math.ceil(res.data.totalCount/res.data.pageSize);
+							that.totalCount = res.data.totalCount;
+						} else
+							backEndExceptionHanlder(res);
+					}).catch(function(res) {
+						unknownError(res);
+					});
+				}else{
+					var params = {
+						currentPageNo: that.currentPageNo,
+						id: 1,
+						seekType: '寻人',
+						contactQQ : sortVal
+					};
+					jsonAxios.post('seek/back/listseek', params).then(function(res) {
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							that.rawSeekList = res.data.seeks;
+							that.totalPage = Math.ceil(res.data.totalCount/res.data.pageSize);
+							that.totalCount = res.data.totalCount;
+						} else
+							backEndExceptionHanlder(res);
+					}).catch(function(res) {
+						unknownError(res);
+					});
 				}
+				
+//				if(sortVal == 'true') {
+//					seekList.sort(function(a, b) {
+//						return Number(a.birthdate.replace(/-/g, '')) - Number(b.birthdate.replace(/-/g, ''))
+//					});
+//				} else {
+//					seekList.sort(function(a, b) {
+//						return Number(b.birthdate.replace(/-/g, '')) - Number(a.birthdate.replace(/-/g, ''))
+//					});
+//				}
 			},
 
 			firstPage: function() {
@@ -253,6 +374,14 @@ $(function() {
 				that.currentPageNo = that.totalPage;
 				that.initRawSeekList(that.totalPage);
 			},
+			addSearch:function(){
+				var that = this
+				var seektype=that.seektype;
+				var url = './update-search.html?seektype='+seektype
+				window.open(url)
+//				window.location.href = './update-search.html?seektype='+seektype
+				console.log(seektype)
+			}
 
 		}
 	});

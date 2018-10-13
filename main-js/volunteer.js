@@ -71,8 +71,10 @@ $(function(){
 					alert('审核已完成，请勿重复审核')
 				}else{
 					simpleAxios.post('volunteer/back/updatevolunteer',params).then(function(res){
-						console.log(res)
-						that.initRawVolunteerList()
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							alert('审核完成，结果为通过')
+							that.initRawVolunteerList(that.currentPageNo)
+						}
 					}).catch(function(err){
 						console.log(err)
 					})
@@ -91,8 +93,10 @@ $(function(){
 					alert('审核已完成，请勿重复审核')
 				}else{
 					simpleAxios.post('volunteer/back/updatevolunteer',params).then(function(res){
-						console.log(res)
-						that.initRawVolunteerList()
+						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
+							alert('审核完成，结果为不通过')
+							that.initRawVolunteerList(that.currentPageNo)
+						}
 					}).catch(function(err){
 						console.log(err)
 					})

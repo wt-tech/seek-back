@@ -42,11 +42,15 @@ $(function() {
 		},
 
 		methods: {
-			initRawPermissionResultList: function() {
+			initRawPermissionResultList: function(pages) {
 				var that = this;
-				simpleAxios.get('back/uri/permissions').then(function(res) {
+				var currentPageNo = pages || 1
+				simpleAxios.get('back/uri/permissions?currentPageNo='+currentPageNo).then(function(res) {
 					if(res.status == STATUS_OK && res.data.status == SUCCESS) {
 						var resData = res.data;
+						console.log(resData)
+						that.totalCount = resData.allPermissionLength;
+						that.totalPage = Math.ceil( resData.allPermissionLength/6)
 						that.rawPermissionList = resData.permissions.map(function(permission){
 							permission.updateFinished = that.DEFAULT;
 							return permission;
@@ -118,7 +122,41 @@ $(function() {
 				rawPermission.updateFinished = that.DEFAULT;
 				//console.log('onfocus',rawPermission,'kkk',rawPermission.updateFinished );
 				that.rawPermissionList.splice(index-1,1,rawPermission);
-			}
+			},
+			firstPage : function(){
+				var that = this;
+				that.currentPageNo = 1;				
+				that.initRawPermissionResultList(1);
+			},
+			lastPage : function(){
+				var that = this;
+				if(that.currentPageNo != that.totalPage){
+					var page = that.totalPage;
+					that.currentPageNo = page;
+					that.initRawPermissionResultList(page);
+				}
+				
+			},
+			prevPage : function(){
+				var that = this;				
+				if(that.currentPageNo == 1){
+					alert('已经是第一页')
+				}else{
+					that.currentPageNo --
+					var page = that.currentPageNo 
+					that.initRawPermissionResultList(page);
+				}
+			},
+			nextPage : function(){
+				var that = this;
+				if(that.currentPageNo == that.totalPage){
+					alert('已经是最后一页')
+				}else{
+					that.currentPageNo ++
+					var page = that.currentPageNo;
+					that.initRawPermissionResultList(page);
+				}
+			},
 		},
 
 	})
