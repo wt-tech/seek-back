@@ -46,12 +46,12 @@ $(function() {
 					that.realErr = '填写姓名'
 					return false
 				};
-				console.log(that.password.length)
+				//console.log(that.password.length)
 				if(!that.isCardNo(that.idCard)) {
 					return false
 				};
 
-				console.log(typeof(that.idCard))
+				//console.log(typeof(that.idCard))
 				var params = {
 					username: this.username,
 					password: this.password,
@@ -114,7 +114,7 @@ $(function() {
 					simpleAxios.get('preflight?username='+username).then(function(res){
 						if(res.status == STATUS_OK && res.data.status == SUCCESS){
 							that.nameErr = ''
-							console.log(res)
+							//console.log(res)
 						}else{
 							that.nameErr = '用户名已被注册'
 						}

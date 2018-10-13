@@ -65,7 +65,7 @@ $(function() {
 					alert('未检测到id,请重试');
 				}
 				this.seektype = id;
-				console.log(this.seektype)
+				//console.log(this.seektype)
 				
 			},
 			initRawSeekList: function(pages,missName) {
@@ -120,7 +120,7 @@ $(function() {
 						};
 					}
 					jsonAxios.post('seek/back/listseek', params).then(function(res) {
-						//console.log('寻人',res.data)
+						////console.log('寻人',res.data)
 						if(res.status == STATUS_OK && res.data.status == SUCCESS) {
 							that.rawSeekList = res.data.seeks;
 							that.totalPage = Math.ceil(res.data.totalCount / res.data.pageSize);
@@ -172,7 +172,7 @@ $(function() {
 			},
 			toComment: function(seek) {
 				var id = seek.id
-				console.log(id)
+				//console.log(id)
 				var url = "comment.html?id=" + id;
 				window.open(url);
 			},
@@ -186,7 +186,7 @@ $(function() {
 			//排序 contactWechat
 			sortPubDate: function(e) {
 				var that = this
-				console.log(e.target.value)
+				//console.log(e.target.value)
 				var seektype = that.seektype
 				var sortVal = e.target.value
 				var seekList = that.seekList
@@ -231,7 +231,7 @@ $(function() {
 			//失踪日期 contactTel
 			sortMissDate: function(e) {
 				var that = this
-				console.log(e.target.value)
+				//console.log(e.target.value)
 				var seektype = that.seektype
 				var sortVal = e.target.value
 				var seekList = that.seekList
@@ -287,7 +287,7 @@ $(function() {
 			//contactQQ 对应出生日期
 			sortBirthDate: function(e) {
 				var that = this
-				console.log(e.target.value)
+				//console.log(e.target.value)
 				var seektype = that.seektype
 				var sortVal = e.target.value
 				var seekList = that.seekList
@@ -359,7 +359,7 @@ $(function() {
 			nextPage: function() {
 				var that = this;
 				var currentPageNo = that.currentPageNo;
-				console.log(that.totalPage);
+				//console.log(that.totalPage);
 				if(that.totalPage == currentPageNo) {
 					alert('已经是最后一页');
 				} else {
@@ -380,7 +380,7 @@ $(function() {
 				var url = './update-search.html?seektype='+seektype
 				window.open(url)
 //				window.location.href = './update-search.html?seektype='+seektype
-				console.log(seektype)
+				//console.log(seektype)
 			}
 
 		}
